@@ -146,9 +146,9 @@ function close(){
 	  </tr>
 	 </table>
 	</form>
-	<input type="button" value="保存" onclick=save(); >
+	<input type="button" value="保存" onclick=save(); />
 	
-	<input type="button" value="关闭" onclick=close();>
+	<input type="button" value="关闭" onclick=close(); />
    </div>    
  </body>
 </html>
