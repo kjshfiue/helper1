@@ -29,7 +29,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-//匿名函数//
+//匿名函数///////
 	 $("#tt").datagrid({
 			title:'公司信息管理',
 			fit:true,
