@@ -10,6 +10,9 @@
  <link  type="text/css" href="themes/default/easyui.css" rel="stylesheet"/>
  <link  type="text/css" href="themes/icon.css" rel="stylesheet" />
  <style>
+ 
+ 
+ 
  td{
  	border-left:1px solid #C7D3E4;
 	border-top:1px solid #C7D3E4;
@@ -26,7 +29,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-//匿名函数
+//匿名函数//
 	 $("#tt").datagrid({
 			title:'公司信息管理',
 			fit:true,
