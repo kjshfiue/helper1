@@ -113,6 +113,16 @@
     <servlet-name>DownloadFileServlet</servlet-name>
     <servlet-class>com.helper.servlet.DownloadFileServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>getStockIn</servlet-name>
+    <servlet-class>com.helper.servlet.getStockIn</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DisplayStockInServlet</servlet-name>
+    <servlet-class>com.helper.servlet.DisplayStockInServlet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -229,6 +239,14 @@
   <servlet-mapping>
     <servlet-name>DownloadFileServlet</servlet-name>
     <url-pattern>/base/DownloadFileServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>getStockIn</servlet-name>
+    <url-pattern>/kucun/getStockIn</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DisplayStockInServlet</servlet-name>
+    <url-pattern>/kucun/DisplayStockInServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
