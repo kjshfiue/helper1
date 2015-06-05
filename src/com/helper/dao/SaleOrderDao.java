@@ -11,5 +11,5 @@ public interface SaleOrderDao {
 	public int addSaleOrder(SaleOrder s);
 	public int deleteByCode(String code);
 	public int deleteBatchByCode(List<String> codeList);
-	public int updateByCode(String code);
+	public int updateByCode(String code,SaleOrder s);
 }

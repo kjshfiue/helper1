@@ -70,6 +70,7 @@ public class GetSaleOrderJSONServlet extends HttpServlet {
 		JSONObject json = new JSONObject();
 		json.put("rows", pageBean.getData());
 		json.put("total", pageBean.getTotal());
+		
 		response.getWriter().println(json.toString());
 		
 	}

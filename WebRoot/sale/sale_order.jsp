@@ -18,13 +18,15 @@
 	#sale_order,#toolbar{
 		width:1366px;
 	}
+	#center{
+		padding:2px;
+	}
 	</style>
 	<script type="text/javascript">
 	$(function(){
 		$("#sale_order").datagrid({
 			url:'sale/GetSaleOrderJSONServlet',
-			dataType:'json',
-			type:'post',
+			//dataType:'json',
 			columns:[[
 				{field:'id',checkbox:true},
 				{field:'code',title:'订单编号',width:200},
@@ -43,28 +45,74 @@
 				}},
 				{field:'addUserName',title:'操作员',width:100},
 				{field:'opt',title:'操作',fit:true,formatter:function(val,row,idx){
-					var content = "<input type='button' value ='删 除' onClick=\"('"+row.code+"')\" />";
-						content += "<input type='button' value='修 改' onClick=\"('"+row.code+"')\" />";
+					var content = "<input type='button' value ='删 除' onClick=\"del('"+row.code+"')\" />";
+						content += "<input type='button' value='修 改' onClick=\"update('"+row.code+"')\" />";
+						content += "<input type='button' value='明 细' onClick=\"show('"+row.code+"')\" />";
 					return content;
 				}},
 			]],
-			fit:true,
+			//fit:true,
 			toolbar:"#toolbar",
 			pagination:true,
 			pageList:[3,5,10,20],
+			onClickRow:function(idx,row){
+				$("#code1").html(row.code);
+				$("#sale_order_detail").datagrid("reload",{'code':code});
+			}
 		});
+		
+		$("#sale_order_detail").datagrid({
+			url:"sale/GetSaleOrderDetailJSONServlet",
+			dataType:'json',
+			columns:[[
+				{field:'sqcode',title:'报价单号',width:200},
+				{field:'partsno',title:'件号',width:200},
+				{field:'customerCode',title:'配件名称',width:100},
+				{field:'nums',title:'配件品牌',width:100},
+				{field:'numSprice',title:'配件型号',width:200},
+				{field:'contacter',title:'数量',width:100},
+				{field:'telPhone',title:'单价',width:100},
+				{field:'state',title:'金额',width:100},
+				{field:'addUserName',title:'备注',width:100}
+			]],
+			fit:true,
+
+		});
+		
+		
 	});
+	
 	function searchSaleOrder(){
 		var code = $("#search_form").find("input[name='code']").val();
 		var startDate = $("#search_form").find("input[name='startDate']").val();
 		var endDate = $("#search_form").find("input[name='endDate']").val();
 		var customerName = $("#search_form").find("input[name='customerCode']").val();
 		var obj={'code':code,'customerName':customerName,'startDate':startDate,'endDate':endDate};
-		alert(code);
+		
 		$("#sale_order").datagrid("reload",obj);
 	}
 	function resetSearchBox(){
 		$("#search_form").form("reset");
+	}
+	function del(code){
+		$.ajax({
+			url:"sale/DelSaleOrderServlet",
+			dataType:"json",
+			type:"post",
+			data:"{'code':"+code+"}",
+			success:function(data){
+				$.messager.alert("信息提示",data.message);
+				$("#sale_order").datagrid("reload");
+			},
+			error:function(data){
+				$.messager.alert("信息提示","删除请求失败");
+			},
+			
+		});
+	}
+	function update(code){
+	}
+	function show(code){
 	}
 	</script>
 
@@ -72,6 +120,8 @@
   
   <body>
     <div id="sale_order" ></div>
+    <div id="center">单据标号为：<span id="code1"></span>的明细如下所列！</div>
+    <div id="sale_order_detail" ></div>
     
     <div id="toolbar" >
     <form id="search_form" >

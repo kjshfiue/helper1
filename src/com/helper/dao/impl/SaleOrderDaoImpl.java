@@ -1,8 +1,10 @@
 package com.helper.dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -94,23 +96,58 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 	@Override
 	public int deleteByCode(String code) {
 		// TODO Auto-generated method stub
-		String sql1 = "delete from SALEORDER where code=?";
-		String sql2 = "delete from SALORDER_DETAIL where code=?";
+		String sql1 = "delete from SALEORDER where code="+code;
+		String sql2 = "delete from SALORDER_DETAIL where code="+code;
 		Connection conn = super.getConnection();
-		
-		return 0;
+		int ret[] = new int[2];
+		try {
+			Statement state = conn.createStatement();
+			conn.setAutoCommit(false);
+			state.addBatch(sql1);
+			state.addBatch(sql2);
+			ret = state.executeBatch();
+			conn.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret[0];
 	}
 
 	@Override
 	public int deleteBatchByCode(List<String> codeList) {
 		// TODO Auto-generated method stub
-		return 0;
+		String sql1 = "delete from SALEORDER where code=";
+		String sql2 = "delete from SALORDER_DETAIL where code=";
+		Connection conn = super.getConnection();
+		int ret[] = new int[2];
+		try {
+			Statement state = conn.createStatement();
+			conn.setAutoCommit(false);
+			for(int i=0;i<codeList.size();i++){
+				String code = codeList.get(i);
+				state.addBatch(sql1+code);
+				state.addBatch(sql2+code);
+			}
+			ret = state.executeBatch();
+			conn.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret[0];
 	}
 
 	@Override
-	public int updateByCode(String code) {
+	public int updateByCode(String code,SaleOrder s) {
 		// TODO Auto-generated method stub
-		return 0;
+		String sql = "update  SALEORDER set code=? where code=?";
+		List<Object> list = new ArrayList<Object>();
+		list.add(s.getCode());
+		list.add(code);
+		Object[] paramValues = list.toArray();
+		int ret = super.executeUpdate(sql, paramValues);
+		return ret;
 	}
 
 }
