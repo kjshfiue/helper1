@@ -113,6 +113,11 @@
     <servlet-name>DownloadFileServlet</servlet-name>
     <servlet-class>com.helper.servlet.DownloadFileServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>GetSaleOrderJSONServlet</servlet-name>
+    <servlet-class>com.helper.servlet.GetSaleOrderJSONServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -229,6 +234,10 @@
   <servlet-mapping>
     <servlet-name>DownloadFileServlet</servlet-name>
     <url-pattern>/base/DownloadFileServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetSaleOrderJSONServlet</servlet-name>
+    <url-pattern>/sale/GetSaleOrderJSONServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
