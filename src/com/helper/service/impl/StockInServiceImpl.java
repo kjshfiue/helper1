@@ -1,7 +1,10 @@
 package com.helper.service.impl;
 
+import java.util.HashMap;
+
 import com.helper.dao.StockInDao;
 import com.helper.dao.impl.StockInDaoImpl;
+import com.helper.entity.PageBean;
 import com.helper.entity.StockIn;
 import com.helper.service.StockInService;
 
@@ -37,6 +40,13 @@ public class StockInServiceImpl implements StockInService {
 	public StockIn findStockIn(String code) {
 		// TODO Auto-generated method stub
 		return stockInDao.findById(code);
+	}
+
+	@Override
+	public PageBean searchPageBean(int pageNo, int pageSize,
+			HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return stockInDao.searchPageBean(pageNo, pageSize, map);
 	}
 
 }

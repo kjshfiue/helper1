@@ -22,11 +22,12 @@
 		fit:true,
 		fitColumns:true,
 		url:'kucun/DisplayStockInServlet',
+		dataType:'json',
 		idField:'code',
 		singleSelect:false,
 		pagination:true,
 		pageList:[3,5,10],
-		pazeSize:5,
+		//pageSize:5,
 		toolbar:"#mydiv1",
 		columns:[[
 		{field:'select',checkbox:true},
@@ -49,7 +50,7 @@
 		
 		/* $.ajax({
 			
-			type:post,
+			type:"POST",
 			dataType:'json',
 			success:function(data){
 				
@@ -64,9 +65,8 @@ function search(){
  var date1= $("#date1").datebox("getValue");
  var date2= $("#date2").datebox("getValue");
  var name = $("#name").val();	
-	$("#mydiv2").datagrid({
-	url:"kuncun/getStockIn?code="+code+"&date1="+date1+"&date12="+date2+"&name="+name
-	});
+ $("#mydiv2").datagrid('reload',{'code':code,'date1':date1,'date2':date2,'name':name});
+ 
  }
 
 	</script>
