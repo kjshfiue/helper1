@@ -58,10 +58,13 @@ public class BaseDao {
 	public int executeUpdate(String sql){
 		return this.executeUpdate(sql, null);	 
 	}
+	
 	public ResultSet executeQuery(String sql){
 		
 		return executeQuery(sql,null);
 	}
+	
+	
 	
 	public ResultSet executeQuery(String sql,Object param){
 		return executeQuery(sql,new Object[]{param});
@@ -84,6 +87,8 @@ public class BaseDao {
 		
 		return rs;
 	}
+	
+	
 	public void closeStatement(){
 		try {
 			if(pstm!=null)pstm.close();
