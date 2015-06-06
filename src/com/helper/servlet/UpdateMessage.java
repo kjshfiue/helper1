@@ -91,7 +91,7 @@ public class UpdateMessage extends HttpServlet {
 		parts.setPartsNo(No);
 		System.out.println("No"+No);
 		parts.setRemarks(remarks);
-		parts.setSalePrice(Price);
+		parts.setSalePrice(Double.parseDouble(Price));
 		
 		
 		

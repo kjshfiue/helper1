@@ -24,10 +24,44 @@ public class DateUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return dateStr;
 	}
 	public static String toSqlDateString(Date date){
 		
 		return null;
+	}
+	/**
+	 * 
+	 * @param date 日期字符串
+	 * @param s 日期格式
+	 * @return
+	 */
+	public static Date toJavaDate(String date,String s){
+		SimpleDateFormat sdf2 = new SimpleDateFormat(s);
+		Date date2 = null;
+		try {
+			date2 = sdf2.parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return date2;
+	}
+	/**
+	 * 
+	 * @param date 日期字符串
+	 * @param s 日期格式
+	 * @return
+	 */
+	public static Date toSqlDate(String date,String s){
+		SimpleDateFormat sdf2 = new SimpleDateFormat(s);
+		Date date2 = null;
+		try {
+			date2 = new java.sql.Date(sdf2.parse(date).getTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return date2;
 	}
 }

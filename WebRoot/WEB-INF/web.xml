@@ -127,6 +127,16 @@
     <servlet-name>GetSaleOrderJSONServlet</servlet-name>
     <servlet-class>com.helper.servlet.GetSaleOrderJSONServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>GetSaleOrderDetailJSONServlet</servlet-name>
+    <servlet-class>com.helper.servlet.GetSaleOrderDetailJSONServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateSaleOrderServlet</servlet-name>
+    <servlet-class>com.helper.servlet.UpdateSaleOrderServlet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -251,6 +261,14 @@
     <servlet-name>GetSaleOrderJSONServlet</servlet-name>
     <url-pattern>/sale/GetSaleOrderJSONServlet</url-pattern>
 
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetSaleOrderDetailJSONServlet</servlet-name>
+    <url-pattern>/sale/GetSaleOrderDetailJSONServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateSaleOrderServlet</servlet-name>
+    <url-pattern>/sale/UpdateSaleOrderServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

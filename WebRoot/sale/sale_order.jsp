@@ -15,8 +15,11 @@
 	<link href="themes/default/easyui.css" rel="stylesheet" type="text/css" />
   	<link href="themes/icon.css" rel="stylesheet" type="text/css" />
 	<style>
+	body{
+		margin:0px;
+	}
 	#sale_order,#toolbar{
-		width:1366px;
+		width:1212px;
 	}
 	#center{
 		padding:2px;
@@ -33,27 +36,28 @@
 		$("#sale_order").datagrid({
 			url:'sale/GetSaleOrderJSONServlet',
 			//dataType:'json',
+			idField:"code",
 			columns:[[
-				{field:'id',checkbox:true},
-				{field:'code',title:'订单编号',width:200},
-				{field:'orderDate',title:'订单日期',width:200},
-				{field:'customerCode',title:'客户名称',width:100},
-				{field:'nums',title:'数量',width:100},
-				{field:'numSprice',title:'总货值',width:100},
-				{field:'contacter',title:'联系人',width:100},
-				{field:'telPhone',title:'联系方式',width:100},
-				{field:'state',title:'审核状态',width:100,formatter:function(val,row,idx){
+				{field:'iddd',checkbox:true},
+				{field:'code',title:'订单编号',width:150},
+				{field:'orderDate',title:'订单日期',width:150},
+				{field:'customerCode',title:'客户名称',width:125,editor:{type:'validatebox'}},
+				{field:'nums',title:'数量',width:100,editor:{type:'validatebox'}},
+				{field:'numSprice',title:'总货值',width:100,editor:{type:'validatebox'}},
+				{field:'contacter',title:'联系人',width:100,editor:{type:'validatebox'}},
+				{field:'telPhone',title:'联系方式',width:100,editor:{type:'validatebox'}},
+				{field:'state',title:'审核状态',width:100,editor:{type:'validatebox'},formatter:function(val,row,idx){
 					if(val.state==1){
 						return "已审核";
 					}else{
 						return "未审核";
 					}
-				}},
+				},editor:{type:'validatebox'}},
 				{field:'addUserName',title:'操作员',width:100},
 				{field:'opt',title:'操作',fit:true,formatter:function(val,row,idx){
 					var content = "<input type='button' value ='删 除' onClick=\"del('"+row.code+"')\" />";
-						content += "<input type='button' value='修 改' onClick=\"update('"+row.code+"')\" />";
-						content += "<input type='button' value='明 细' onClick=\"show('"+row.code+"')\" />";
+						content += "<input type='button' name='upButton' value='修 改' onClick=\"update('"+row.code+"')\" />";
+						content += "<input type='button' name='cancelEdit' value='取 消'/>";
 					return content;
 				}},
 			]],
@@ -63,7 +67,7 @@
 			pageList:[3,5,10,20],
 			onClickRow:function(idx,row){
 				$("#code1").html(row.code);
-				$("#sale_order_detail").datagrid("reload",{'code':code});
+				$("#sale_order_detail").datagrid("reload",{'code':row.code});
 			}
 		});
 		
@@ -117,8 +121,39 @@
 		});
 	}
 	function update(code){
+		var val = $("input[name='upButton']").val();
+		var idx = $("#sale_order").datagrid("getRowIndex",code);
+		if(val=="修 改"){
+			$("input[name='cancelEdit']").click(function(){
+				$("#sale_order").datagrid("cancelEdit",idx);
+			});
+			$("#sale_order").datagrid("beginEdit",idx);
+			$("input[name='upButton']").val("确 定");
+		}else if(val=="确 定"){
+			var data = $("#sale_order").datagrid("getRows")[idx];
+			$("#sale_order").datagrid("endEdit",idx);
+			var dataJson = {'code1':code,'code':data.code,'orderDate':data.orderDate,'customerCode':data.customerCode,
+							'nums':data.nums,'numSprice':data.numSprice,'contacter':data.contacter,
+							'telPhone':data.telPhone,'state':data.state,'addUserName':data.addUserName};
+			$.ajax({
+				url:"sale/UpdateSaleOrderServlet",
+				data:dadaJson,
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					$("#sale_order").datagrid("reload");
+					$.messager.alert("信息提示",data.message);
+					
+				}
+			});
+			$("input[name='upButton']").val("修 改");
+		}else{
+			alert("取值错误");
+		}
 	}
 	function show(code){
+		$("#code1").html(code);
+		$("#sale_order_detail").datagrid("reload",{"code":code});
 	}
 	</script>
 
