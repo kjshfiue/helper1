@@ -8,6 +8,7 @@ import com.helper.entity.SaleOrder;
 
 public interface SaleOrderDao {
 	public PageBean findSaleOrder(int pageNo,int pageSize,Map<String,String> map);
+	public PageBean findSaleOrderDatail(int pageNo,int pageSize,String spcode);
 	public int addSaleOrder(SaleOrder s);
 	public int deleteByCode(String code);
 	public int deleteBatchByCode(List<String> codeList);

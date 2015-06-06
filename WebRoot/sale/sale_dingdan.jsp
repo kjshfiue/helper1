@@ -16,11 +16,15 @@
   	<link href="themes/icon.css" rel="stylesheet" type="text/css" />
 	<style type="text/css">
 	#order{
-		width:800px;
-		height:400px;
+		width:900px;
 		margin:0px auto;
 	}
-	span{
+	#box{
+		height: 300px;
+		width:900px;
+		margin:0px auto;
+	}
+	#order span{
 		color:red;
 	}
 	table{
@@ -45,15 +49,20 @@
 			url:"sale/GetSaleOrderDetailJSONServlet",
 			dataType:'json',
 			columns:[[
-				{field:'sqcode',title:'报价单号',width:200},
-				{field:'partsno',title:'件号',width:200},
-				{field:'customerCode',title:'配件名称',width:100},
-				{field:'nums',title:'配件品牌',width:100},
-				{field:'numSprice',title:'配件型号',width:200},
-				{field:'contacter',title:'数量',width:100},
-				{field:'telPhone',title:'单价',width:100},
-				{field:'state',title:'金额',width:100},
-				{field:'addUserName',title:'备注',width:100}
+				{field:'sqcode',title:'报价单号',width:100},
+				{field:'partsno',title:'件号',width:100},
+				{field:'customerCode',title:'配件名称',width:80},
+				{field:'nums',title:'配件品牌',width:80},
+				{field:'numSprice',title:'配件型号',width:100},
+				{field:'contacter',title:'数量',width:30},
+				{field:'telPhone',title:'单价',width:80},
+				{field:'state',title:'金额',width:80},
+				{field:'addUserName',title:'备注',width:80},
+				{field:'state',title:'上次价格',width:80},
+				{field:'addUserName',title:'操作',width:50,formatter:function(val,idx,row){
+					var content = "<input type='button' value='删除' onClick=\"("+row.sqcode+")\" />";
+					return content;
+				}}
 			]],
 			fit:true,
 		});
@@ -130,7 +139,9 @@
     
     <br />
     
-    <div id="sale_order_detail"></div>
+    <div id="box">
+    	<div id="sale_order_detail"></div>
+    </div>
     
   </body>
 </html>

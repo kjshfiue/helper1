@@ -23,6 +23,12 @@
 	}
 	</style>
 	<script type="text/javascript">
+	$.fn.datebox.defaults.formatter = function(date){
+		var y = date.getFullYear();
+		var m = date.getMonth()+1;
+		var d = date.getDate();
+		return y+'-'+m+'-'+d;
+	}
 	$(function(){
 		$("#sale_order").datagrid({
 			url:'sale/GetSaleOrderJSONServlet',
@@ -127,8 +133,8 @@
     <form id="search_form" >
     <span>检索条件：</span>
     <span>订单编号：</span><input type="text" name="code" />
-    <span>开始日期：</span><input type="text" name="startDate" />
-    <span>结束日期：</span><input type="text" name="endDate" />
+    <span>开始日期：</span><input type="text" class="easyui-datebox"  name="startDate" />
+    <span>结束日期：</span><input type="text" class="easyui-datebox"  name="endDate" />
     <span>客户名称：</span><input type="text" name="customerCode" />
     <a href="javaScript:searchSaleOrder();"><input type="button" value="搜    索" /></a>
     <a href="javaScript:resetSearchBox();"><input type="button" value="重    置" /></a>
