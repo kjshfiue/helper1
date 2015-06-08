@@ -7,6 +7,7 @@ import com.helper.dao.SaleOrderDao;
 import com.helper.dao.impl.SaleOrderDaoImpl;
 import com.helper.entity.PageBean;
 import com.helper.entity.SaleOrder;
+import com.helper.entity.SaleOrderDetail;
 import com.helper.service.SaleOrderService;
 
 public class SaleOrderServiceImpl implements SaleOrderService {
@@ -37,9 +38,15 @@ public class SaleOrderServiceImpl implements SaleOrderService {
 	}
 
 	@Override
-	public int updateByCode(String code) {
+	public int updateByCode(String code,SaleOrder s) {
 		// TODO Auto-generated method stub
-		return saleOrderDao.updateByCode(code);
+		return saleOrderDao.updateByCode(code,s);
+	}
+
+	@Override
+	public List<SaleOrderDetail> findDatailByCode(String code) {
+		// TODO Auto-generated method stub
+		return saleOrderDao.findDatailByCode(code);
 	}
 	
 

@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
+
 	/**
 	 * 
 	 * @param date ÈÕÆÚ×Ö·û´®
@@ -65,5 +66,10 @@ private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return dateStr;
 	}
 
-
+	public static String toSqlDateString(Date date){
+		
+		return null;
+	}
+	
+	
 }

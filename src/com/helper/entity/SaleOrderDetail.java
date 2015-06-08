@@ -4,7 +4,7 @@ public class SaleOrderDetail {
 	private String code;//明细单号
 	private String scode;//销售单编号
 	private String sqcode;//报价单编号
-	private String pcode;//配件编号
+	private Parts part;//配件编号
 	private int nums;//数量
 	private int price;//销售单价
 	private String state;//是否出库0-未出库 1-全部出库 2-部分出库
@@ -28,11 +28,11 @@ public class SaleOrderDetail {
 	public void setSqcode(String sqcode) {
 		this.sqcode = sqcode;
 	}
-	public String getPcode() {
-		return pcode;
+	public Parts getPcode() {
+		return part;
 	}
-	public void setPcode(String pcode) {
-		this.pcode = pcode;
+	public void setPcode(Parts part) {
+		this.part = part;
 	}
 	public int getNums() {
 		return nums;

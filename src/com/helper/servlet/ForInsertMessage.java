@@ -89,7 +89,7 @@ public class ForInsertMessage extends HttpServlet {
 		parts.setPartsNo(No);
 		
 		parts.setRemarks(remarks);
-		parts.setSalePrice(Price);
+		parts.setSalePrice(Double.parseDouble(Price));
 		PartsServicesImpl psi=new PartsServicesImpl();
 		int flag=psi.addParts(parts);
 		PrintWriter out = response.getWriter();

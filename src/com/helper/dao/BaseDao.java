@@ -148,6 +148,9 @@ public class BaseDao {
 	public int executeTotalCount(String sql){
 		return executeTotalCount(sql,null);
 	}
+	public int executeTotalCount(String sql,Object param){
+		return executeTotalCount(sql,new Object[]{param});
+	}
 	//¼ÆËã¼ÇÂ¼Êý
 	public int executeTotalCount(String sql,Object[] params){
 		rs=this.executeQuery(sql,params);

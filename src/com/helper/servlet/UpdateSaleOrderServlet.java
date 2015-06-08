@@ -1,22 +1,19 @@
 package com.helper.servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONObject;
-
-import com.helper.entity.PageBean;
+import com.helper.entity.SaleOrder;
 import com.helper.service.SaleOrderService;
 import com.helper.service.impl.SaleOrderServiceImpl;
+import com.helper.tools.DateUtil;
 
-public class GetSaleOrderJSONServlet extends HttpServlet {
-	private SaleOrderService saleOrderService = new SaleOrderServiceImpl();
+public class UpdateSaleOrderServlet extends HttpServlet {
+	private SaleOrderService soService = new SaleOrderServiceImpl();
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -45,33 +42,38 @@ public class GetSaleOrderJSONServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		response.setContentType("text/json; charset=utf-8");
+
+		response.setContentType("text/josn; charset=utf-8");
 		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
+		String code1 = request.getParameter("code1");
 		String code = request.getParameter("code");
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
+		String orderDate = request.getParameter("orderDate");
 		String customerCode = request.getParameter("customerCode");
-		String pageNo = request.getParameter("page");
-		String pageSize = request.getParameter("rows");
-		if(pageNo==null||pageNo==""){
-			pageNo = "1";
-		}
-		if(pageSize==null||pageSize==""){
-			pageSize = "10";
-		}
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("code", code);
-		map.put("startDate", startDate);
-		map.put("endDate", endDate);
-		map.put("customerCode", customerCode);
-		PageBean pageBean = saleOrderService.findSaleOrder(Integer.parseInt(pageNo),Integer.parseInt(pageSize),map);
-		JSONObject json = new JSONObject();
-		json.put("rows", pageBean.getData());
-		json.put("total", pageBean.getTotal());
+		String nums = request.getParameter("nums");
+		String numSprice = request.getParameter("numSprice");
+		String telPhone = request.getParameter("telPhone");
+		String state = request.getParameter("state");
+		String addUserName = request.getParameter("addUserName");
+		String contacter = request.getParameter("contacter");
 		
-		response.getWriter().println(json.toString());
+		SaleOrder s = new SaleOrder();
+		s.setCode(code);
+		s.setOrderDate(DateUtil.toJavaDate(orderDate,"yyyy-MM-dd"));
+		s.setCustomerCode(customerCode);
+		s.setNums(nums==""?0:Integer.parseInt(nums));
+		s.setNumSprice(numSprice==""?0:Integer.parseInt(numSprice));
+		s.setTelPhone(telPhone);
+		s.setState("已审核".equals(state)?"1":"0");
+		s.setAddUserName(addUserName);
+		s.setContacter(contacter);
+		int ret = soService.updateByCode(code1, s);
+		if(ret==1){
+			response.getWriter().println("{'message':'修改成功！'}");
+		}else{
+			response.getWriter().println("{'message':'修改失败！'}");
+		}
+		
+		
 		
 	}
 

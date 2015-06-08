@@ -3,6 +3,7 @@ package com.helper.dao.impl;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,9 @@ import java.util.Map;
 import com.helper.dao.BaseDao;
 import com.helper.dao.SaleOrderDao;
 import com.helper.entity.PageBean;
+import com.helper.entity.Parts;
 import com.helper.entity.SaleOrder;
+import com.helper.entity.SaleOrderDetail;
 
 public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 
@@ -94,23 +97,100 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 	@Override
 	public int deleteByCode(String code) {
 		// TODO Auto-generated method stub
-		String sql1 = "delete from SALEORDER where code=?";
-		String sql2 = "delete from SALORDER_DETAIL where code=?";
+		String sql1 = "delete from SALEORDER where code="+code;
+		String sql2 = "delete from SALORDER_DETAIL where code="+code;
 		Connection conn = super.getConnection();
-		
-		return 0;
+		int ret[] = new int[2];
+		try {
+			Statement state = conn.createStatement();
+			conn.setAutoCommit(false);
+			state.addBatch(sql1);
+			state.addBatch(sql2);
+			ret = state.executeBatch();
+			conn.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret[0];
 	}
 
 	@Override
 	public int deleteBatchByCode(List<String> codeList) {
 		// TODO Auto-generated method stub
-		return 0;
+		String sql1 = "delete from SALEORDER where code=";
+		String sql2 = "delete from SALORDER_DETAIL where code=";
+		Connection conn = super.getConnection();
+		int ret[] = new int[2];
+		try {
+			Statement state = conn.createStatement();
+			conn.setAutoCommit(false);
+			for(int i=0;i<codeList.size();i++){
+				String code = codeList.get(i);
+				state.addBatch(sql1+code);
+				state.addBatch(sql2+code);
+			}
+			ret = state.executeBatch();
+			conn.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret[0];
 	}
 
 	@Override
-	public int updateByCode(String code) {
+	public int updateByCode(String code,SaleOrder s) {
 		// TODO Auto-generated method stub
-		return 0;
+		String sql = "update  SALEORDER set code=?,orderDate=?,customerCode=?,nums=?,numSprice=?,"
+				+ "telPhone=?,state=?,addUserName=?,contacter=? where code=?";
+		List<Object> list = new ArrayList<Object>();
+		list.add(s.getCode());
+		list.add(s.getOrderDate());
+		list.add(s.getCustomerCode());
+		list.add(s.getNums());
+		list.add(s.getNumSprice());
+		list.add(s.getTelPhone());
+		list.add("“—…Û∫À".equals(s.getState())?1:0);
+		list.add(s.getAddUserName());
+		list.add(s.getContacter());
+		list.add(code);
+		Object[] paramValues = list.toArray();
+		int ret = super.executeUpdate(sql, paramValues);
+		return ret;
+	}
+
+	@Override
+	public List<SaleOrderDetail> findDatailByCode(String code){
+		// TODO Auto-generated method stub
+		String sql = "select * from SALORDER_DETAIL where code=?";
+		ResultSet rs = super.executeQuery(sql, code);
+		List<SaleOrderDetail> list = new ArrayList<SaleOrderDetail>();
+		SaleOrderDetail soDetail = null;
+		Parts parts = null;
+		try {
+			while(rs.next()){
+				soDetail = new SaleOrderDetail();
+				soDetail.setCknums(rs.getInt("cknums"));
+				soDetail.setCode(rs.getString("code"));
+				soDetail.setNums(rs.getInt("nums"));
+				parts = new Parts();
+				parts.setPartsCode(rs.getString("pcode"));
+				parts.setSalePrice(rs.getDouble("salePrice"));
+				soDetail.setPcode(parts);
+				soDetail.setRemarks(rs.getString("remarks"));
+				soDetail.setScode(rs.getString("scode"));
+				soDetail.setSqcode(rs.getString("sqcode"));
+				soDetail.setState(rs.getString("state"));
+				list.add(soDetail);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			super.closeAll();
+		}
+		return list;
 	}
 
 }
