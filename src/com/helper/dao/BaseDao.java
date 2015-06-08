@@ -118,7 +118,7 @@ public class BaseDao {
 	public  ResultSet executeQueryForPage(String sql,Object[] params){		
 		String pageSql="select * from (select rownum r,x.* " +
 				"from (";
-			pageSql+=sql+") x where rownum<=?) where r>?";
+			pageSql+=sql+" ) x where rownum<=? ) where r>?";
 		return this.executeQuery(pageSql, params);
 	}
 	//返回新产生的id
