@@ -113,6 +113,24 @@
     <servlet-name>DownloadFileServlet</servlet-name>
     <servlet-class>com.helper.servlet.DownloadFileServlet</servlet-class>
   </servlet>
+  <servlet>
+   
+    <servlet-name>ForFindOrders</servlet-name>
+    <servlet-class>com.helper.servlet.ForFindOrders</servlet-class>
+  </servlet>
+  <servlet>
+
+    <servlet-name>ForAddorder</servlet-name>
+    <servlet-class>com.helper.servlet.ForAddorder</servlet-class>
+  </servlet>
+  <servlet>
+   
+    <servlet-name>ForFindXJMessage</servlet-name>
+    <servlet-class>com.helper.servlet.ForFindXJMessage</servlet-class>
+  </servlet>
+
+
+
 
 
 
@@ -229,6 +247,18 @@
   <servlet-mapping>
     <servlet-name>DownloadFileServlet</servlet-name>
     <url-pattern>/base/DownloadFileServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ForFindOrders</servlet-name>
+    <url-pattern>/ForFindOrders.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ForAddorder</servlet-name>
+    <url-pattern>/ForAddorder.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ForFindXJMessage</servlet-name>
+    <url-pattern>/ForFindXJMessage.do</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
