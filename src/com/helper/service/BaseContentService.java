@@ -16,4 +16,5 @@ public interface BaseContentService {
 	public PageBean searchPageBean(int pageNo,int pageSize,HashMap<String,String> map);
 	public List<String> findCategoryCodes();
 	public List<Map<String,Object>> findAllBaseContent(HashMap<String, String> map);
+		
 }

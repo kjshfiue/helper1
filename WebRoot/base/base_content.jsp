@@ -42,8 +42,9 @@ $(function(){
 	$("#baseContentList").datagrid({
 		//url:"base/GetBaseContentJSONServlet",
 		url:"base/SearchBaseContentJSONservlet",
+		
 		columns:[[
-			{field:'id',checkbox:true},
+			{field:'iddd',checkbox:true},
 			{field:'categorycode',title:'所属类别',width:100},
 			{field:'code',title:'字典编号',width:100},
 			{field:'codeName',title:'字典内容',width:100},

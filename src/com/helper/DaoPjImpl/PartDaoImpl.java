@@ -45,7 +45,7 @@ public class PartDaoImpl extends BaseDao implements PartsDao {
 				parts.setAddUser(rs.getString("adduser"));
 				parts.setAddUserName(rs.getString("addusername"));
 				parts.setCompCode(rs.getString("compcode"));
-				parts.setCostPrice(rs.getString("costprice"));
+				parts.setCostPrice(rs.getDouble("costprice"));
 				parts.setIdShow(rs.getString("isshow"));
 				parts.setPartsBrand(rs.getString("partsbrand"));
 				parts.setPartsCategory(rs.getString("PartsCategory"));
@@ -60,7 +60,7 @@ public class PartDaoImpl extends BaseDao implements PartsDao {
 				parts.setPartsUnit(rs.getString("PartsUnit"));
 				parts.setPartWeight(rs.getString("PartsWeight"));
 				parts.setRemarks(rs.getString("Remarks"));
-				parts.setSalePrice(rs.getString("SalePrice"));
+				parts.setSalePrice(rs.getDouble("SalePrice"));
 				parts.setSpell(rs.getString("Spell"));
 				list.add(parts);
 				

@@ -10,7 +10,7 @@ public class JSONDateProcessor implements JsonValueProcessor {
 
 	private SimpleDateFormat sdf=null;
 	public JSONDateProcessor(){
-		sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	}
 	public JSONDateProcessor(String fmt){
 		sdf=new SimpleDateFormat(fmt);

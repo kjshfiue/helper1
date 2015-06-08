@@ -58,10 +58,13 @@ public class BaseDao {
 	public int executeUpdate(String sql){
 		return this.executeUpdate(sql, null);	 
 	}
+	
 	public ResultSet executeQuery(String sql){
 		
 		return executeQuery(sql,null);
 	}
+	
+	
 	
 	public ResultSet executeQuery(String sql,Object param){
 		return executeQuery(sql,new Object[]{param});
@@ -84,6 +87,8 @@ public class BaseDao {
 		
 		return rs;
 	}
+	
+	
 	public void closeStatement(){
 		try {
 			if(pstm!=null)pstm.close();
@@ -142,6 +147,9 @@ public class BaseDao {
 	//计算记录数
 	public int executeTotalCount(String sql){
 		return executeTotalCount(sql,null);
+	}
+	public int executeTotalCount(String sql,Object param){
+		return executeTotalCount(sql,new Object[]{param});
 	}
 	//计算记录数
 	public int executeTotalCount(String sql,Object[] params){
