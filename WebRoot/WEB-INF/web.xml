@@ -115,35 +115,44 @@
   </servlet>
   <servlet>
     <servlet-name>GetBaseCashInqueryServlet</servlet-name>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <description>This is the description of my J2EE component</description>
     <servlet-class>com.helper.servlet.GetBaseCashInqueryServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>DeleteCashInqueryServlet</servlet-name>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <description>This is the description of my J2EE component</description>
     <servlet-class>com.helper.servlet.DeleteCashInqueryServlet</servlet-class>
   </servlet>
   <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>UpdateCashInqueryServlet</servlet-name>
     <servlet-class>com.helper.servlet.UpdateCashInqueryServlet</servlet-class>
   </servlet>
   <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>AddCashInqureyServlet</servlet-name>
     <servlet-class>com.helper.servlet.AddCashInqureyServlet</servlet-class>
   </servlet>
 
 
 
+  <servlet>
+    <servlet-name>getStockIn</servlet-name>
+    <servlet-class>com.helper.servlet.getStockIn</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DisplayStockInServlet</servlet-name>
+    <servlet-class>com.helper.servlet.DisplayStockInServlet</servlet-class>
+  </servlet>
 
-
-
-
+ <servlet>
+    <servlet-name>GetSaleOrderJSONServlet</servlet-name>
+    <servlet-class>com.helper.servlet.GetSaleOrderJSONServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetSaleOrderDetailJSONServlet</servlet-name>
+    <servlet-class>com.helper.servlet.GetSaleOrderDetailJSONServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateSaleOrderServlet</servlet-name>
+    <servlet-class>com.helper.servlet.UpdateSaleOrderServlet</servlet-class>
+  </servlet>
 
 
 
@@ -273,6 +282,27 @@
   <servlet-mapping>
     <servlet-name>AddCashInqureyServlet</servlet-name>
     <url-pattern>/base/AddCashInqureyServlet</url-pattern>
+     </servlet-mapping>
+ <servlet-mapping>
+    <servlet-name>getStockIn</servlet-name>
+    <url-pattern>/kucun/getStockIn</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DisplayStockInServlet</servlet-name>
+    <url-pattern>/kucun/DisplayStockInServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetSaleOrderJSONServlet</servlet-name>
+    <url-pattern>/sale/GetSaleOrderJSONServlet</url-pattern>
+
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetSaleOrderDetailJSONServlet</servlet-name>
+    <url-pattern>/sale/GetSaleOrderDetailJSONServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateSaleOrderServlet</servlet-name>
+    <url-pattern>/sale/UpdateSaleOrderServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

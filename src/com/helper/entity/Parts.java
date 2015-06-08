@@ -14,8 +14,8 @@ public class Parts {
 	private String partWeight;
 	private String partsImg;
 	private String partsUnit;
-	private String salePrice;
-	private String costPrice;
+	private double salePrice;
+	private double costPrice;
 	private String idShow;
 	private String remarks;
 	private String addDate;
@@ -101,16 +101,16 @@ public class Parts {
 	public void setPartsUnit(String partsUnit) {
 		this.partsUnit = partsUnit;
 	}
-	public String getSalePrice() {
+	public double getSalePrice() {
 		return salePrice;
 	}
-	public void setSalePrice(String salePrice) {
+	public void setSalePrice(double salePrice) {
 		this.salePrice = salePrice;
 	}
-	public String getCostPrice() {
+	public double getCostPrice() {
 		return costPrice;
 	}
-	public void setCostPrice(String costPrice) {
+	public void setCostPrice(double costPrice) {
 		this.costPrice = costPrice;
 	}
 	public String getIdShow() {

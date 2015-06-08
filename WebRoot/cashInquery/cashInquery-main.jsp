@@ -20,20 +20,7 @@
     </style>
     <script type="text/javascript">
       $(function(){
-         	var myDate = new Date();
-		    /* myDate.getYear();       //获取当前年份(2位)
-		    myDate.getFullYear();   //获取完整的年份(4位,1970-????)
-		    myDate.getMonth();      //获取当前月份(0-11,0代表1月)
-		    myDate.getDate();       //获取当前日(1-31)
-		    myDate.getDay();        //获取当前星期X(0-6,0代表星期天)
-		    myDate.getTime();       //获取当前时间(从1970.1.1开始的毫秒数)
-		    myDate.getHours();      //获取当前小时数(0-23)
-		    myDate.getMinutes();    //获取当前分钟数(0-59)
-		    myDate.getSeconds();    //获取当前秒数(0-59)
-		    myDate.getMilliseconds();   //获取当前毫秒数(0-999)
-		    myDate.toLocaleDateString();    //获取当前日期
-		    var mytime=myDate.toLocaleTimeString();    //获取当前时间
-		    myDate.toLocaleString( );       //获取日期与时间 */
+         	
             
       $("#update_win").window("close");
       $('#add_win').window('close'); 
@@ -69,7 +56,17 @@
     	});
     });
     function add(){
+            var myDate = new Date();   
+		    var year= myDate.getFullYear();   //获取完整的年份(4位,1970-????)
+		    var month=myDate.getMonth()+1;      //获取当前月份(0-11,0代表1月)
+		    var day=myDate.getDate();       //获取当前日(1-31)
+            var hour= myDate.getHours();      //获取当前小时数(0-23)
+		    var minutes=myDate.getMinutes();    //获取当前分钟数(0-59)
+		    var seconds= myDate.getSeconds();    //获取当前秒数(0-59)
+		    var mytime="KH"+year+month+day+hour+minutes+seconds;
            $('#add_win').window('open');
+            $("#addTable").find("input[name='code_add']").val(mytime.toString());
+           
     };
     function save_add(){
            $.ajax({
@@ -178,7 +175,8 @@
  <div id="add_win" class="easyui-window" title="添加配件窗口" style="width:600px;height:400px" data-options="iconCls:'icon-save',modal:true">   
     <form id="MyForm_add">
     <table id="addTable">
-    	<tr>
+    	<tr>    
+    	        <td><input type="hidden" name="code_add" /></td>
     			<td>询价日期：</td><td><input type="text" name="addDate_add" /></td>
     	</tr>
     	<tr>
@@ -212,9 +210,9 @@
      <form id="MyForm1">
     <table id="updateTable">
         <tr>
-        	<td><input type="hidden" name="code_update" /></td>
+        	<td><input type="hidden" name="code_update" />询价编号</td>
         </tr>
-    	<tr>
+    	<tr> 
     		<td>供应商名：</td><td><input type="text" name="comPcode_update" /></td>
     			<td>数量：</td><td><input type="text" name="nums_update" /></td>
     	</tr>

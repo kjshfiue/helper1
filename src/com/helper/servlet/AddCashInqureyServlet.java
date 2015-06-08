@@ -75,6 +75,7 @@ public class AddCashInqureyServlet extends HttpServlet {
 		Date date=new Date();
 		int year =0;
 		
+		
 		CashInquery cashInquery=new CashInquery();
 		cashInquery.setCode(code);
 		cashInquery.setComPCode(comPCode);
