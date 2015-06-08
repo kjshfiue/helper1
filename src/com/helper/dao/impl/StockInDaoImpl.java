@@ -71,12 +71,13 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 	}
 
 	@Override
-	public int update(StockIn stockIn) {
+	public int update(String code,StockIn stockIn) {
 		// TODO Auto-generated method stub
-		String sql="update stockin set code=?,indate=?,suppliercode=?,nums=?,numSpric,state=?,addUserName?";
-		int ret=super.executeUpdate(sql, new Object[]{stockIn.getCode(),stockIn.getInDate(),stockIn.getSupplierCode(),
-				stockIn.getNums(),stockIn.getNumSprice(),
-				stockIn.getState(),stockIn.getAddUserName()});
+		String sql="update stockin set indate=?,suppliercode=?,nums=?,numsprice=?,state=?,addusername=? where code=?";
+		int ret=super.executeUpdate(sql, new Object[]{new java.sql.Date(stockIn.getInDate().getTime()),
+				stockIn.getSupplierCode(),stockIn.getNums(),
+				stockIn.getNumSprice(),stockIn.getState(),
+				stockIn.getAddUserName(),code});
 		return ret;
 	}
 
@@ -158,7 +159,7 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 				
 				stockIn = new StockIn();
 				stockIn.setCode(rs.getString("code"));
-				stockIn.setInDate(rs.getDate("indate"));
+				stockIn.setInDate(rs.getTimestamp("indate"));
 				stockIn.setSupplierCode(rs.getString("suppliercode"));
 				stockIn.setContActer(rs.getString("contacter"));
 				stockIn.setTeltphone(rs.getString("teltphone"));
@@ -172,7 +173,7 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 				stockIn.setNumSprice(rs.getDouble("numsprice"));
 				stockIn.setState(rs.getString("state"));
 				stockIn.setCompCode(rs.getString("compcode"));
-				stockIn.setAddDate(rs.getDate("adddate"));
+				stockIn.setAddDate(rs.getTimestamp("adddate"));
 				stockIn.setAddUser(rs.getString("adduser"));
 				stockIn.setAddUserName(rs.getString("addusername"));
 				stockIn.setAddIp(rs.getString("addip"));

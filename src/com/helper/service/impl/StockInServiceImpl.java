@@ -20,14 +20,14 @@ public class StockInServiceImpl implements StockInService {
 	@Override
 	public int deleteStockIn(String code) {
 		// TODO Auto-generated method stub
-		return 0;
+		return stockInDao.delete(code);
 	}
 
 	
 	@Override
-	public int updateStockIn(String code) {
+	public int updateStockIn(String code,StockIn stockIn) {
 		// TODO Auto-generated method stub
-		return 0;
+		return stockInDao.update(code,stockIn);
 	}
 
 	@Override
