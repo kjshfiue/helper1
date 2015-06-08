@@ -127,6 +127,16 @@
     <servlet-name>GetSaleOrderJSONServlet</servlet-name>
     <servlet-class>com.helper.servlet.GetSaleOrderJSONServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>deleteStockInDanJuServlet</servlet-name>
+    <servlet-class>com.helper.servlet.deleteStockInDanJuServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>updateStockInDanJuServlet</servlet-name>
+    <servlet-class>com.helper.servlet.updateStockInDanJuServlet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -251,6 +261,14 @@
     <servlet-name>GetSaleOrderJSONServlet</servlet-name>
     <url-pattern>/sale/GetSaleOrderJSONServlet</url-pattern>
 
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>deleteStockInDanJuServlet</servlet-name>
+    <url-pattern>/kucun/deleteStockInDanJuServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>updateStockInDanJuServlet</servlet-name>
+    <url-pattern>/kucun/updateStockInDanJuServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

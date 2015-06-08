@@ -14,7 +14,7 @@ public interface StockInDao {
 	public int delete (String code);
 	public StockIn findAll();
 	public StockIn findById(String code);
-	public int update(StockIn stockIn);
+	public int update(String code,StockIn stockIn);
 	public PageBean searchPageBean(int pageNo,int pageSize,HashMap<String,String> map);
 	
 }
