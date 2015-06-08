@@ -137,7 +137,7 @@
 							'telPhone':data.telPhone,'state':data.state,'addUserName':data.addUserName};
 			$.ajax({
 				url:"sale/UpdateSaleOrderServlet",
-				data:dadaJson,
+				data:dataJson,
 				type:"post",
 				dataType:"json",
 				success:function(data){
