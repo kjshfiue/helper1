@@ -1,6 +1,7 @@
 package com.helper.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,15 +16,14 @@ import net.sf.json.JsonConfig;
 
 import com.helper.entity.PageBean;
 import com.helper.service.StockInService;
+import com.helper.service.StockOutService;
 import com.helper.service.impl.StockInServiceImpl;
+import com.helper.service.impl.StockOutServiceImpl;
 import com.helper.tools.DateUtil;
 import com.helper.util.JSONDateProcessor;
 
+public class DisplayStockOutServlet extends HttpServlet {
 
-
-public class DisplayStockInServlet extends HttpServlet {
-	
-	
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -34,12 +34,10 @@ public class DisplayStockInServlet extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
-	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		this.doPost(request, response);
-		
 	}
 
 	/**
@@ -52,12 +50,13 @@ public class DisplayStockInServlet extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
-	private StockInService stockInService = new StockInServiceImpl();
+	private StockOutService stockOutService = new StockOutServiceImpl();
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-  	 	
-		response.setContentType("text/json; charset=utf-8");
+		response.setContentType("text/json;charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+		
 		String pageNo=request.getParameter("page");
 		String pageSize=request.getParameter("rows");
 		if(pageNo==null||pageNo==""){
@@ -83,12 +82,11 @@ public class DisplayStockInServlet extends HttpServlet {
 			date2 = DateUtil.toSqlDateString(date2);
 		}
 		map.put("code", code);
-		//System.out.println("込込"+date1);
+		System.out.println("込込"+date1);
 		map.put("date1", date1);
-		System.out.println("込込*"+date2);
 		map.put("date2", date2);
 		map.put("name", name);
-		PageBean pageBean = stockInService.searchPageBean
+		PageBean pageBean = stockOutService.searchPageBean
 				(Integer.parseInt(pageNo), Integer.parseInt(pageSize), map);
 		
 		JsonConfig jsonConfig = new JsonConfig();
@@ -101,7 +99,6 @@ public class DisplayStockInServlet extends HttpServlet {
         
         jsonObject.putAll(attrs,jsonConfig);
         response.getWriter().println(jsonObject.toString());
-		
 		
 	}
 
