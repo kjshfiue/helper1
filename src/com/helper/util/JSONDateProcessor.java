@@ -2,28 +2,37 @@ package com.helper.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import net.sf.json.JsonConfig;
 import net.sf.json.processors.JsonValueProcessor;
 
 public class JSONDateProcessor implements JsonValueProcessor {
 
-	private SimpleDateFormat sdf=null;
+	private String format = null;
 	public JSONDateProcessor(){
-		sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		this.format = "yyyy-MM-dd HH:mm:ss";
 	}
 	public JSONDateProcessor(String fmt){
-		sdf=new SimpleDateFormat(fmt);
+		this.format = fmt;
 	}
 
 	public Object processObjectValue(String key, Object val, JsonConfig conf) {
 		// TODO Auto-generated method stub
-		return sdf.format((Date)val);
+		return process(val);
 	}
 	
 	public Object processArrayValue(Object val, JsonConfig conf) {
 		// TODO Auto-generated method stub
-		return sdf.format((Date)val);
+		return process(val);
 	}
+	
+    private Object process(Object value){   
+        if(value instanceof Date){   
+            SimpleDateFormat sdf = new SimpleDateFormat(format,Locale.UK);   
+            return sdf.format((Date)value);   
+        }   
+        return value == null ? "" : value.toString();   
+    }
 
 }

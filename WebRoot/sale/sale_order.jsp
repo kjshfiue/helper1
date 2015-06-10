@@ -47,7 +47,7 @@
 				{field:'contacter',title:'联系人',width:100,editor:{type:'validatebox'}},
 				{field:'telPhone',title:'联系方式',width:100,editor:{type:'validatebox'}},
 				{field:'state',title:'审核状态',width:100,editor:{type:'validatebox'},formatter:function(val,row,idx){
-					if(val.state==1){
+					if(val=="1"){
 						return "已审核";
 					}else{
 						return "未审核";
@@ -56,8 +56,8 @@
 				{field:'addUserName',title:'操作员',width:100},
 				{field:'opt',title:'操作',fit:true,formatter:function(val,row,idx){
 					var content = "<input type='button' value ='删 除' onClick=\"del('"+row.code+"')\" />";
-						content += "<input type='button' name='upButton' value='修 改' onClick=\"update('"+row.code+"')\" />";
-						content += "<input type='button' name='cancelEdit' value='取 消'/>";
+						content += "<input type='button' name='up"+row.code+"' value='修 改' onClick=\"update('"+row.code+"')\" />";
+						content += "<input type='button' name='cl"+row.code+"' value='取 消'/>";
 					return content;
 				}},
 			]],
@@ -120,15 +120,21 @@
 			
 		});
 	}
+	function delBatch(){
+		var rows=$("#sale_order").datagrid("getSelections");
+		for(row in rows){
+			
+		}
+	}
 	function update(code){
-		var val = $("input[name='upButton']").val();
+		var val = $("input[name='up"+code+"']").val();
 		var idx = $("#sale_order").datagrid("getRowIndex",code);
 		if(val=="修 改"){
-			$("input[name='cancelEdit']").click(function(){
+			$("input[name='cl"+code+"']").click(function(){
 				$("#sale_order").datagrid("cancelEdit",idx);
 			});
 			$("#sale_order").datagrid("beginEdit",idx);
-			$("input[name='upButton']").val("确 定");
+			$("input[name='up"+code+"']").val("确 定");
 		}else if(val=="确 定"){
 			var data = $("#sale_order").datagrid("getRows")[idx];
 			$("#sale_order").datagrid("endEdit",idx);
@@ -146,7 +152,7 @@
 					
 				}
 			});
-			$("input[name='upButton']").val("修 改");
+			$("input[name='up"+code+"']").val("修 改");
 		}else{
 			alert("取值错误");
 		}
@@ -154,6 +160,10 @@
 	function show(code){
 		$("#code1").html(code);
 		$("#sale_order_detail").datagrid("reload",{"code":code});
+	}
+	function add(){
+		parent.addTabs("销售订单","sale/sale_dingdan.jsp");
+		//window.open("sale/sale_dingdan.jsp");
 	}
 	</script>
 

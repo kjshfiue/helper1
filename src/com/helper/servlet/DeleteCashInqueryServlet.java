@@ -1,17 +1,34 @@
 package com.helper.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.helper.entity.BaseContent;
-import com.helper.service.BaseContentService;
-import com.helper.service.impl.BaseContentServiceImpl;
+import net.sf.json.JSONObject;
 
-public class AddBaseContentServlet extends HttpServlet {
+import com.helper.dao.CashInqueryDao;
+import com.helper.dao.impl.CashInqueryDaoImpl;
+
+public class DeleteCashInqueryServlet extends HttpServlet {
+
+	/**
+	 * Constructor of the object.
+	 */
+	public DeleteCashInqueryServlet() {
+		super();
+	}
+
+	/**
+	 * Destruction of the servlet. <br>
+	 */
+	public void destroy() {
+		super.destroy(); // Just puts "destroy" string in log
+		// Put your code here
+	}
 
 	/**
 	 * The doGet method of the servlet. <br>
@@ -25,8 +42,16 @@ public class AddBaseContentServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		this.doPost(request, response);
+            response.setContentType("text/json;charset=utf-8");
+            response.setCharacterEncoding("utf-8");
+            request.setCharacterEncoding("utf-8");
+            String code=request.getParameter("code");
+            CashInqueryDao cashInquery=new CashInqueryDaoImpl();
+            int ret=cashInquery.delCashInqueryList(code);
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("ret", ret);
+            response.getWriter().println(jsonObject.toString());
+	 
 	}
 
 	/**
@@ -41,26 +66,16 @@ public class AddBaseContentServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+              this.doGet(request, response);
+	}
 
-		response.setContentType("text/json; charset=utf-8");
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-	
-		BaseContent bc = new BaseContent();
-		bc.setCode(request.getParameter("code"));
-		bc.setCodeName(request.getParameter("codeName"));
-		bc.setCategorycode(request.getParameter("categorycode"));
-		bc.setOrderNo(request.getParameter("orderNo"));
-		bc.setIsShow(request.getParameter("isShow"));
-		bc.setRemarks(request.getParameter("remarks"));
-		bc.setAddUser(request.getParameter("addUser"));
-		bc.setAddUserName(request.getParameter("addUserName"));
-		bc.setAddIp(request.getParameter("addIp"));
-		bc.setCompCode(request.getParameter("compCode"));
-		BaseContentService bcService = new BaseContentServiceImpl();
-		int ret = bcService.addBaseContent(bc);
-		response.getWriter().println("{'message':"+(ret==1?"添加成功":"添加失败")+"}");
-		
+	/**
+	 * Initialization of the servlet. <br>
+	 *
+	 * @throws ServletException if an error occurs
+	 */
+	public void init() throws ServletException {
+		// Put your code here
 	}
 
 }
