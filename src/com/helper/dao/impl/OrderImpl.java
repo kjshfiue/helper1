@@ -72,7 +72,7 @@ public class OrderImpl extends BaseDao implements OrderDao{
 	Object obj[]=new Object[18];
 obj[0]=ord.getCode();
 try {
-	java.util.Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(ord.getOrderDate());
+	java.util.Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(ord.getOrderDate());
 	java.sql.Date newdate1=new java.sql.Date(date1.getTime());
 	
 	obj[1]=newdate1;
@@ -86,7 +86,7 @@ obj[4]=ord.getTelphone();
 obj[5]=ord.getFax();
 obj[6]=ord.getTrans();
 try {
-	java.util.Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(ord.getDeliverydate());
+	java.util.Date date2=new SimpleDateFormat("yyyy/MM/dd").parse(ord.getDeliverydate());
 	java.sql.Date newdate2=new java.sql.Date(date2.getTime());
 	obj[7]=newdate2;
 } catch (ParseException e1) {
@@ -101,7 +101,7 @@ obj[11]=ord.getNums();
 obj[12]=ord.getNumsprice();
 obj[13]=ord.getState();
 try {
-	java.util.Date date=new SimpleDateFormat("yyyy-MM-dd").parse(ord.getAddDate());
+	java.util.Date date=new SimpleDateFormat("yyyy/MM/dd").parse(ord.getAddDate());
 	java.sql.Date newdate=new java.sql.Date(date.getTime());
 	obj[14]=newdate;
 } catch (ParseException e1) {
@@ -117,5 +117,63 @@ obj[17]=ord.getAddIp();
 	int flag=super.executeUpdate(sql, obj);
 		return flag;
 	}
+	//É¾³ý¶©µ¥
+	public int deleteMessage(String code){
+		String sql="delete from purchaseorder where code="+code;
+		int flag=super.executeUpdate(sql);
+		return flag;
+
 	
+		
+	}
+	//ÐÞ¸Ä¶©µ¥
+	public int updateMessage(Order ord){
+		String sql="update purchaseorder set orderdate=?,suppliercode=?,contacter=?,telphone=?,fax=?,trans=?,deliverydate=?,businesser=?,remarks=?,isshow=?,nums=?,numsprice=?,state=?,adddate=?,adduser=?,addusername=?,addip=?  where code = ?";
+		Object obj[]=new Object[18];
+		obj[17]=ord.getCode();
+		try {
+			java.util.Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(ord.getOrderDate());
+			java.sql.Date newdate1=new java.sql.Date(date1.getTime());
+			
+			obj[0]=newdate1;
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		obj[1]=ord.getSuppliercode();
+		obj[2]=ord.getContacter();
+		obj[3]=ord.getTelphone();
+		obj[4]=ord.getFax();
+		obj[5]=ord.getTrans();
+		try {
+			java.util.Date date2=new SimpleDateFormat("yyyy/MM/dd").parse(ord.getDeliverydate());
+			java.sql.Date newdate2=new java.sql.Date(date2.getTime());
+			obj[6]=newdate2;
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		obj[7]=ord.getBusinesser();
+		obj[8]=ord.getRemarks();
+		obj[9]=ord.getIsshow();
+		obj[10]=ord.getNums();
+		obj[11]=ord.getNumsprice();
+		obj[12]=ord.getState();
+		try {
+			java.util.Date date=new SimpleDateFormat("yyyy/MM/dd").parse(ord.getAddDate());
+			java.sql.Date newdate=new java.sql.Date(date.getTime());
+			obj[13]=newdate;
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		obj[14]=ord.getAdduser();
+		obj[15]=ord.getAddUserName();
+		obj[16]=ord.getAddIp();
+		int flag=super.executeUpdate(sql,obj);
+		
+		return flag;
+	}
+
 }

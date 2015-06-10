@@ -2,24 +2,18 @@ package com.helper.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-
-import com.helper.PjServices.impl.PartsServicesImpl;
-
-public class ForDeleteMessage extends HttpServlet {
+public class GetBasePartServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public ForDeleteMessage() {
+	public GetBasePartServlet() {
 		super();
 	}
 
@@ -43,11 +37,7 @@ public class ForDeleteMessage extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		this.doPost(request, response);
+            this.doPost(request, response);
 	}
 
 	/**
@@ -62,21 +52,11 @@ public class ForDeleteMessage extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html");
-		String list=request.getParameter("partscode");
-	
-		//System.out.println("code:"+list);
+              request.setCharacterEncoding("utf-8");
+              response.setContentType("text/json;charset=utf-8");
+              String code=request.getParameter("code");
+              
 		
-		PartsServicesImpl psi=new PartsServicesImpl();
-		int flag=psi.deleteParts(list);
-	
-		
-		PrintWriter out = response.getWriter();
-		out.print(flag);
-		out.flush();
-		out.close();
 	}
 
 	/**

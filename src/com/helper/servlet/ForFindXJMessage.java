@@ -69,10 +69,12 @@ public class ForFindXJMessage extends HttpServlet {
 		int first=Integer.parseInt(pageNo);
 		int second=Integer.parseInt(pageSize);
 		String code=request.getParameter("codes");
+		//System.out.println(code);
 		NewCashInqueryDaoImpl ncid=new NewCashInqueryDaoImpl();
-		List<NewCashInquery> list=ncid.findCashInquery("1", first, second);
+		List<NewCashInquery> list=ncid.findCashInquery(code, first, second);
+		
 		JSONArray jsar=JSONArray.fromObject(list);
-		System.out.println(jsar);
+		//System.out.println(jsar);
 		PrintWriter out = response.getWriter();
 		out.print(jsar);
 		out.flush();

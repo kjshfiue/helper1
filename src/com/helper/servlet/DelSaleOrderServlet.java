@@ -2,35 +2,17 @@ package com.helper.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
+import com.helper.service.SaleOrderService;
+import com.helper.service.impl.SaleOrderServiceImpl;
 
-import com.helper.PjServices.impl.PartsServicesImpl;
-
-public class ForDeleteMessage extends HttpServlet {
-
-	/**
-	 * Constructor of the object.
-	 */
-	public ForDeleteMessage() {
-		super();
-	}
-
-	/**
-	 * Destruction of the servlet. <br>
-	 */
-	public void destroy() {
-		super.destroy(); // Just puts "destroy" string in log
-		// Put your code here
-	}
-
+public class DelSaleOrderServlet extends HttpServlet {
+	private SaleOrderService saleOrderService = new SaleOrderServiceImpl();
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -43,10 +25,7 @@ public class ForDeleteMessage extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+
 		this.doPost(request, response);
 	}
 
@@ -62,30 +41,19 @@ public class ForDeleteMessage extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html");
-		String list=request.getParameter("partscode");
-	
-		//System.out.println("code:"+list);
-		
-		PartsServicesImpl psi=new PartsServicesImpl();
-		int flag=psi.deleteParts(list);
-	
-		
-		PrintWriter out = response.getWriter();
-		out.print(flag);
-		out.flush();
-		out.close();
-	}
 
-	/**
-	 * Initialization of the servlet. <br>
-	 *
-	 * @throws ServletException if an error occurs
-	 */
-	public void init() throws ServletException {
-		// Put your code here
+		response.setContentType("text/json; charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+		String code = request.getParameter("code");
+		int ret = saleOrderService.deleteByCode(code);
+		String message = null;
+		if(ret==1){
+			message = "É¾³ý³É¹¦£¡";
+		}else{
+			message = "É¾³ýÊ§°Ü£¡";
+		}
+		response.getWriter().println("{\"message\":"+message+"}");
+		
 	}
 
 }

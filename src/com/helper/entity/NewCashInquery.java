@@ -5,112 +5,79 @@ package com.helper.entity;
 import java.util.Date;
 
 public class NewCashInquery {
-	    String code;//报价单编号
-	    String addDate;//报价日期
-	    String supplierCode;//客户编号
-	    String contacter;//联系人
-	    String telphone;//电话
-	    String fax;//传真
-	    String nums;//总数量
-	    String numSprice;//总价格
-	    String isShow;//是否显示
-	    String state;//状态
-	    String remarks;//备注
-	    String addUser;//操作日期
-	    String addUserName;//操作人姓名
-	    String addIP;//操作IP
-	    String comPCode;//所属公司
-		public String getCode() {
-			return code;
-		}
-		public void setCode(String code) {
-			this.code = code;
-		}
-		public String getAddDate() {
-			return addDate;
-		}
-		public void setAddDate(String addDate) {
-			this.addDate = addDate;
-		}
-		public String getSupplierCode() {
-			return supplierCode;
-		}
-		public void setSupplierCode(String supplierCode) {
-			this.supplierCode = supplierCode;
-		}
-		public String getContacter() {
-			return contacter;
-		}
-		public void setContacter(String contacter) {
-			this.contacter = contacter;
-		}
-		public String getTelphone() {
-			return telphone;
-		}
-		public void setTelphone(String telphone) {
-			this.telphone = telphone;
-		}
-		public String getFax() {
-			return fax;
-		}
-		public void setFax(String fax) {
-			this.fax = fax;
-		}
-		public String getNums() {
-			return nums;
-		}
-		public void setNums(String nums) {
-			this.nums = nums;
-		}
-		public String getNumSprice() {
-			return numSprice;
-		}
-		public void setNumSprice(String numSprice) {
-			this.numSprice = numSprice;
-		}
-		public String getIsShow() {
-			return isShow;
-		}
-		public void setIsShow(String isShow) {
-			this.isShow = isShow;
-		}
-		public String getState() {
-			return state;
-		}
-		public void setState(String state) {
-			this.state = state;
-		}
-		public String getRemarks() {
-			return remarks;
-		}
-		public void setRemarks(String remarks) {
-			this.remarks = remarks;
-		}
-		public String getAddUser() {
-			return addUser;
-		}
-		public void setAddUser(String addUser) {
-			this.addUser = addUser;
-		}
-		public String getAddUserName() {
-			return addUserName;
-		}
-		public void setAddUserName(String addUserName) {
-			this.addUserName = addUserName;
-		}
-		public String getAddIP() {
-			return addIP;
-		}
-		public void setAddIP(String addIP) {
-			this.addIP = addIP;
-		}
-		public String getComPCode() {
-			return comPCode;
-		}
-		public void setComPCode(String comPCode) {
-			this.comPCode = comPCode;
-		}
-	    
+   private String xunCode;
+   private String pjCode;
+   private String pjName;
+   private String pjBrand;
+   private String pjXinghao;
+   private String number;
+   private String dPrice;
+   private String Num;
+   private String marks;
+   private String lastPrice;
+public String getXunCode() {
+	return xunCode;
+}
+public void setXunCode(String xunCode) {
+	this.xunCode = xunCode;
+}
+public String getPjCode() {
+	return pjCode;
+}
+public void setPjCode(String pjCode) {
+	this.pjCode = pjCode;
+}
+public String getPjName() {
+	return pjName;
+}
+public void setPjName(String pjName) {
+	this.pjName = pjName;
+}
+public String getPjBrand() {
+	return pjBrand;
+}
+public void setPjBrand(String pjBrand) {
+	this.pjBrand = pjBrand;
+}
+public String getPjXinghao() {
+	return pjXinghao;
+}
+public void setPjXinghao(String pjXinghao) {
+	this.pjXinghao = pjXinghao;
+}
+public String getNumber() {
+	return number;
+}
+public void setNumber(String number) {
+	this.number = number;
+}
+public String getdPrice() {
+	return dPrice;
+}
+public void setdPrice(String dPrice) {
+	this.dPrice = dPrice;
+}
+public String getNum() {
+	return Num;
+}
+public void setNum(String num) {
+	Num = num;
+}
+public String getMarks() {
+	return marks;
+}
+public void setMarks(String marks) {
+	this.marks = marks;
+}
+public String getLastPrice() {
+	return lastPrice;
+}
+public void setLastPrice(String lastPrice) {
+	this.lastPrice = lastPrice;
+}
+   
+   
+   
 	
 		
 

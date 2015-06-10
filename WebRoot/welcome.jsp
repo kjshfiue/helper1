@@ -13,10 +13,29 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<style type="text/css">
+	#img1{
+		width:100px;
+		height:100px;
+		border-radius:20px;
+	}
+	#div1{
+		background-color:red;
+		width:100px;
+		height:100px;
+		border-radius:20px;
+	}
+	hr{
+	margin:0px;
 
+	}
+	</style>
   </head>
   
   <body>
-    WELCOME
+    <img src="aaa.jpg" id="img1"/>
+    <hr />
+    <hr />
+    <div id="div1"></div>
   </body>
 </html>

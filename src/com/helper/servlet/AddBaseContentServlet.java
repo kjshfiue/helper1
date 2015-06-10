@@ -42,6 +42,7 @@ public class AddBaseContentServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		response.setContentType("text/json; charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 	
@@ -58,7 +59,7 @@ public class AddBaseContentServlet extends HttpServlet {
 		bc.setCompCode(request.getParameter("compCode"));
 		BaseContentService bcService = new BaseContentServiceImpl();
 		int ret = bcService.addBaseContent(bc);
-		
+		response.getWriter().println("{'message':"+(ret==1?"添加成功":"添加失败")+"}");
 		
 	}
 
