@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import com.helper.entity.PageBean;
 import com.helper.entity.Parts;
 import com.helper.entity.SaleOrder;
 import com.helper.entity.SaleOrderDetail;
+import com.helper.tools.DateUtil;
 
 public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 
@@ -28,15 +30,15 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 				list.add("%"+map.get("code")+"%");
 			}
 			if(map.get("startDate")!=null&&map.get("startDate")!=""){
-				sql += "and orderdate>? ";
+				sql += " and orderdate>? ";
 				list.add(map.get("startDate"));
 			}
 			if(map.get("endDate")!=null&&map.get("endDate")!=""){
-				sql += "and orderdate<? ";
+				sql += " and orderdate<? ";
 				list.add(map.get("endDate"));
 			}
 			if(map.get("customerCode")!=null&&map.get("customerCode")!=""){
-				sql += "and customerCode like ? ";
+				sql += " and customerCode like ? ";
 				list.add("%"+map.get("customerCode")+"%");
 			}
 		}
@@ -51,7 +53,11 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 			while(rs.next()){
 				saleOrder = new SaleOrder();
 				saleOrder.setCode(rs.getString("code"));
-				saleOrder.setOrderDate(rs.getTimestamp("orderDate"));
+				Date orderDate = null;
+				if(rs.getTimestamp("orderDate")!=null){
+					orderDate = new java.util.Date(rs.getDate("orderDate").getTime());
+				}
+				saleOrder.setOrderDate(orderDate);
 				saleOrder.setCustomerCode(rs.getString("customerCode"));
 				saleOrder.setNums(rs.getInt("nums"));
 				saleOrder.setNumSprice(rs.getInt("numSprice"));
@@ -82,7 +88,7 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 		//String sql2 = "insert into SALORDER_DETAIL values(?,?,?,?,?,?,?,?,?)";
 		List<Object> list = new ArrayList<Object>();
 		list.add(s.getCode());
-		list.add(s.getOrderDate());
+		list.add(DateUtil.toSqlDate(s.getOrderDate()));
 		list.add(s.getCustomerCode());
 		list.add(s.getNums());
 		list.add(s.getNumSprice());
@@ -111,8 +117,13 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally{
+			super.closeAll();
 		}
-		return ret[0];
+		if(ret[0]==1&&ret[1]==1){
+			return 1;
+		}
+		return 0;
 	}
 
 	@Override
@@ -146,7 +157,7 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 				+ "telPhone=?,state=?,addUserName=?,contacter=? where code=?";
 		List<Object> list = new ArrayList<Object>();
 		list.add(s.getCode());
-		list.add(s.getOrderDate());
+		list.add(DateUtil.toSqlDate(s.getOrderDate()));
 		list.add(s.getCustomerCode());
 		list.add(s.getNums());
 		list.add(s.getNumSprice());

@@ -1,18 +1,18 @@
 package com.helper.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.helper.entity.BaseContent;
-import com.helper.service.BaseContentService;
-import com.helper.service.impl.BaseContentServiceImpl;
+import com.helper.service.SaleOrderService;
+import com.helper.service.impl.SaleOrderServiceImpl;
 
-public class AddBaseContentServlet extends HttpServlet {
-
+public class DelSaleOrderServlet extends HttpServlet {
+	private SaleOrderService saleOrderService = new SaleOrderServiceImpl();
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -44,22 +44,15 @@ public class AddBaseContentServlet extends HttpServlet {
 
 		response.setContentType("text/json; charset=utf-8");
 		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-	
-		BaseContent bc = new BaseContent();
-		bc.setCode(request.getParameter("code"));
-		bc.setCodeName(request.getParameter("codeName"));
-		bc.setCategorycode(request.getParameter("categorycode"));
-		bc.setOrderNo(request.getParameter("orderNo"));
-		bc.setIsShow(request.getParameter("isShow"));
-		bc.setRemarks(request.getParameter("remarks"));
-		bc.setAddUser(request.getParameter("addUser"));
-		bc.setAddUserName(request.getParameter("addUserName"));
-		bc.setAddIp(request.getParameter("addIp"));
-		bc.setCompCode(request.getParameter("compCode"));
-		BaseContentService bcService = new BaseContentServiceImpl();
-		int ret = bcService.addBaseContent(bc);
-		response.getWriter().println("{'message':"+(ret==1?"Ìí¼Ó³É¹¦":"Ìí¼ÓÊ§°Ü")+"}");
+		String code = request.getParameter("code");
+		int ret = saleOrderService.deleteByCode(code);
+		String message = null;
+		if(ret==1){
+			message = "É¾³ý³É¹¦£¡";
+		}else{
+			message = "É¾³ýÊ§°Ü£¡";
+		}
+		response.getWriter().println("{\"message\":"+message+"}");
 		
 	}
 
