@@ -46,6 +46,13 @@ function addTabs(title,url){
 		})
 	}
 }
+function closeTabs(title){
+ if($('#tt').tabs('exists',title)){
+		$('#tt').tabs('close',title);
+}else{
+	$.messager.alert("错误提示","关闭失败！");
+}
+}
 </script>
 </head>
 
