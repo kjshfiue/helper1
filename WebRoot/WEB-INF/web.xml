@@ -153,6 +153,24 @@
     <servlet-name>UpdateSaleOrderServlet</servlet-name>
     <servlet-class>com.helper.servlet.UpdateSaleOrderServlet</servlet-class>
   </servlet>
+  <servlet>
+
+    <servlet-name>ExportCashInqueryExcelServlet</servlet-name>
+    <servlet-class>com.helper.servlet.ExportCashInqueryExcelServlet</servlet-class>
+  </servlet>
+  <servlet>
+
+    <servlet-name>ExportAllSearchServlet</servlet-name>
+    <servlet-class>com.helper.servlet.ExportAllSearchServlet</servlet-class>
+  </servlet>
+  <servlet>
+
+    <servlet-name>GetBasePartServlet</servlet-name>
+    <servlet-class>com.helper.servlet.GetBasePartServlet</servlet-class>
+  </servlet>
+
+
+
 
 
 
@@ -303,6 +321,18 @@
   <servlet-mapping>
     <servlet-name>UpdateSaleOrderServlet</servlet-name>
     <url-pattern>/sale/UpdateSaleOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ExportCashInqueryExcelServlet</servlet-name>
+    <url-pattern>/base/ExportCashInqueryExcelServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ExportAllSearchServlet</servlet-name>
+    <url-pattern>/base/ExportAllSearchServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetBasePartServlet</servlet-name>
+    <url-pattern>/base/GetBasePartServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
