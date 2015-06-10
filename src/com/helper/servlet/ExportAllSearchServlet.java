@@ -2,8 +2,9 @@ package com.helper.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -11,20 +12,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
-
 import com.helper.dao.CashInqueryDao;
 import com.helper.dao.impl.CashInqueryDaoImpl;
-import com.helper.entity.PageBean;
-import com.helper.util.JSONDateProcessor;
+import com.helper.tools.JxlExcelUtils;
 
-public class GetBaseCashInqueryServlet extends HttpServlet {
+public class ExportAllSearchServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetBaseCashInqueryServlet() {
+	public ExportAllSearchServlet() {
 		super();
 	}
 
@@ -48,64 +45,7 @@ public class GetBaseCashInqueryServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		    response.setContentType("text/json; charset=utf-8");
-		    JsonConfig config=new JsonConfig();
-		    config.registerJsonValueProcessor(Date.class,new JSONDateProcessor("dd-MM月-yy"));
-		    CashInqueryDao ciDao=new CashInqueryDaoImpl();
- 		    String pageNo=request.getParameter("page");
-		    String pageSize=request.getParameter("rows");
-		    if(pageNo==null||pageNo.equals("")){
-		    	pageNo="1";
-		    }
-		    if(pageSize==null||pageSize.equals("")){
-		    	pageSize="10";
-		    }
-		    String code=null;
-		    String startDate=null;
-		    String endDate=null;
-		    String privider=null;
-		    String code1=request.getParameter("code");
-		    if(code1==null||code1==""){
-		    	code="'null'";
-		    	
-		    }else{
-		        code="'"+code1+"'";
-		    }
-		    String startDate1=request.getParameter("startDate");
-		    if(startDate1==null||startDate1==""){
-		    	startDate="'null'";
-		    }
-		    else{
-		     startDate="'"+startDate1+"'";
-		     }
-		    String endDate1 =request.getParameter("endDate");
-		    if(endDate1==null||endDate1==""){
-		    	endDate="'null'";
-		    }else{
-		      endDate="'"+endDate1+"'";
-		    }
-		    String privider1=request.getParameter("privider");
-		    if(privider1==null||privider1==""){
-		    	privider="'null'";
-		    }else{
-		     privider="'"+privider1+"'";}
-	
-		    
-		    HashMap <String ,String> map=new HashMap<String ,String>();
-		    map.put("code", code);
-		    map.put("endDate", endDate);
-		    map.put("startDate", startDate);
-		    map.put("comPCode",privider);
-		    
-		     PageBean pageBean=ciDao.searchPartBySth(Integer.parseInt(pageNo), Integer.parseInt(pageSize),map);
-             //PageBean pageBean=ciDao.getAllPartInfo(Integer.parseInt(pageNo), Integer.parseInt(pageSize));
-		     Map attrs=new HashMap();
-             JSONObject jsonObject=new JSONObject();
-             attrs.put("rows",pageBean.getData());
-             attrs.put("total",pageBean.getTotal());
-             jsonObject.putAll(attrs,config);
-             String data=jsonObject.toString();
-             response.getWriter().println(data);
+            this.doPost(request, response);
 	
 	}
 
@@ -121,8 +61,57 @@ public class GetBaseCashInqueryServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-				this.doGet(request, response);
-	}
+            response.setContentType("text/json;chartset=utf-8");
+            request.setCharacterEncoding("utf-8");
+            String code=null;
+		    String startDate=null;
+		    String endDate=null;
+		    String privider=null;
+		    String code1=request.getParameter("code");
+		    if(code1==null||code1==""){
+		    	code="'null'";
+		    	
+		    }else{
+		        code="'"+code1+"'";
+		    }
+		    String startDate1=request.getParameter("startDate");
+		    if(startDate1==null||startDate1==""){
+		    	startDate="'null'";
+		    }
+		    else{
+		         startDate="'"+startDate1+"'";
+		     }
+		    String endDate1 =request.getParameter("endDate");
+		    if(endDate1==null||endDate1==""){
+		    	endDate="'null'";
+		    }else{
+		      endDate="'"+endDate1+"'";
+		    }
+		    String privider1=request.getParameter("privider");
+		    if(privider1==null||privider1==""){
+		    	privider="'null'";
+		    }else{
+		     privider="'"+privider1+"'";}
+		
+		    
+		    HashMap <String ,String> map=new HashMap<String ,String>();
+		    map.put("code", code);
+		    map.put("endDate", endDate);
+		    map.put("startDate", startDate);
+		    map.put("comPCode",privider);
+		    CashInqueryDao ciDao=new CashInqueryDaoImpl();
+		    List<Map<String,Object>> listData = ciDao.findAllBCashInquery(map);
+		    List<String> columns = new ArrayList<String>();
+			columns.add("询价编号");
+			columns.add("询价日期");
+			columns.add("供应商名称");
+			columns.add("数量");
+			columns.add("金额");
+			columns.add("联系人");
+			columns.add("联系方式");
+			columns.add("审核状态");
+			JxlExcelUtils.exportexcle(response, "询价单", listData, "sheetName", columns);  
+	       }
 
 	/**
 	 * Initialization of the servlet. <br>

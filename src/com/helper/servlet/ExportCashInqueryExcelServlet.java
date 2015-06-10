@@ -2,24 +2,25 @@ package com.helper.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONObject;
-
 import com.helper.dao.CashInqueryDao;
 import com.helper.dao.impl.CashInqueryDaoImpl;
 import com.helper.entity.CashInquery;
 
-public class UpdateCashInqueryServlet extends HttpServlet {
+public class ExportCashInqueryExcelServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public UpdateCashInqueryServlet() {
+	public ExportCashInqueryExcelServlet() {
 		super();
 	}
 
@@ -43,9 +44,8 @@ public class UpdateCashInqueryServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.doPost(request, response);
 
-		
+	       this.doPost(request, response);
 	}
 
 	/**
@@ -60,39 +60,44 @@ public class UpdateCashInqueryServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		response.setContentType("text/json;charset=utf-8");
-		request.setCharacterEncoding("utf-8");
-		CashInquery cashInquery=new CashInquery();
-		//获得前台所传数据
-		String code=request.getParameter("code_update");
-		String comPCode=request.getParameter("comPcode_update");
-	    String nums=request.getParameter("nums_update");
-	    String numSprice=request.getParameter("numSprice_update");
-	    String contacter=request.getParameter("contacter_update");
-	    String telephone =request.getParameter("telephone_update");
-	    String state=request.getParameter("state_update");
-	 
-	   
-	    //获得数据进行封装
-	    cashInquery.setCode(code);
-	    cashInquery.setComPCode(comPCode);
-	    cashInquery.setNums(nums);
-	    cashInquery.setNumSprice(numSprice);
-	    cashInquery.setContacter(contacter);
-	    cashInquery.setTelphone(telephone);
-	    cashInquery.setState(state);
-	    
-	    //将数据写回数据库
-	    CashInqueryDao ciDao=new CashInqueryDaoImpl();
-	    int ret=0;
-	     ret=ciDao.updateCashInqueryList(cashInquery);
-	     System.out.println(ret);
-	    JSONObject jsonObject=new JSONObject();
-	    jsonObject.put("ret",ret);
-	    String data=jsonObject.toString();
-	    System.out.println(data); 
-	    response.getWriter().println(data);
+			response.setContentType("text/json;charset=utf-8 ");
+			request.setCharacterEncoding("utf-8");
+			CashInquery cashInquery=new CashInquery();
+			//获得前台所传数据
+			String code=request.getParameter("code");
+			String addDate1= request.getParameter("addDate");
+			String comPCode=request.getParameter("comPCode");
+		    String nums=request.getParameter("nums");
+		    String numSprice=request.getParameter("numSprice");
+		    String contacter=request.getParameter("contacter");
+		    String telphone =request.getParameter("telphone");
+		    String state=request.getParameter("state");
+		    System.out.println(addDate1);
+		    //转化日期型数据
+		    SimpleDateFormat sdf= new SimpleDateFormat("dd-MM月-yy");
+		    Date addDate=null;
+			try {
+				addDate = sdf.parse(addDate1);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		    //获得数据进行封装
+		    cashInquery.setCode(code);
+		    cashInquery.setAddDate(addDate);
+		    cashInquery.setComPCode(comPCode);
+		    cashInquery.setNums(nums);
+		    cashInquery.setNumSprice(numSprice);
+		    cashInquery.setContacter(contacter);
+		    cashInquery.setTelphone(telphone);
+		    cashInquery.setState(state);
+		   
+		    
+		    //方法调用
+		    CashInqueryDao ciDao=new CashInqueryDaoImpl();
+		    ciDao.outputExecle(cashInquery);
+	
 	}
 
 	/**
