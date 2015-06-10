@@ -114,7 +114,25 @@
     <servlet-class>com.helper.servlet.DownloadFileServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>GetBaseCashInqueryServlet</servlet-name>
+    <servlet-class>com.helper.servlet.GetBaseCashInqueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteCashInqueryServlet</servlet-name>
+    <servlet-class>com.helper.servlet.DeleteCashInqueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateCashInqueryServlet</servlet-name>
+    <servlet-class>com.helper.servlet.UpdateCashInqueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddCashInqureyServlet</servlet-name>
+    <servlet-class>com.helper.servlet.AddCashInqureyServlet</servlet-class>
+  </servlet>
 
+
+
+  <servlet>
     <servlet-name>getStockIn</servlet-name>
     <servlet-class>com.helper.servlet.getStockIn</servlet-class>
   </servlet>
@@ -260,6 +278,22 @@
     <url-pattern>/base/DownloadFileServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>GetBaseCashInqueryServlet</servlet-name>
+    <url-pattern>/base/GetBaseCashInqueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteCashInqueryServlet</servlet-name>
+    <url-pattern>/base/DeleteCashInqueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateCashInqueryServlet</servlet-name>
+    <url-pattern>/base/UpdateCashInqueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddCashInqureyServlet</servlet-name>
+    <url-pattern>/base/AddCashInqureyServlet</url-pattern>
+     </servlet-mapping>
+ <servlet-mapping>
     <servlet-name>getStockIn</servlet-name>
     <url-pattern>/kucun/getStockIn</url-pattern>
   </servlet-mapping>
