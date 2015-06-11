@@ -31,5 +31,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/freemarker-2.3.19.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jxl.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/javaee.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-3.6-20091214.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

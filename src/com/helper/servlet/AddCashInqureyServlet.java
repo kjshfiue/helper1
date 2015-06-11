@@ -63,6 +63,7 @@ public class AddCashInqureyServlet extends HttpServlet {
 		response.setContentType("text/json;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 		//获得前台页面传来数据
+		String code=request.getParameter("code_add");
 		String comPCode=request.getParameter("comPcode_add");
 		String nums=request.getParameter("nums_add");
 		String numSprice=request.getParameter("numSprice_add");
@@ -71,11 +72,6 @@ public class AddCashInqureyServlet extends HttpServlet {
 		String state=request.getParameter("state_add");
 		String remarks=request.getParameter("remarks_add");
 		//对数据进行封装
-		String code=null;
-		Date date=new Date();
-		int year =0;
-		
-		
 		CashInquery cashInquery=new CashInquery();
 		cashInquery.setCode(code);
 		cashInquery.setComPCode(comPCode);
@@ -85,6 +81,17 @@ public class AddCashInqureyServlet extends HttpServlet {
 		cashInquery.setTelphone(telephone);
 		cashInquery.setState(state);
 		cashInquery.setRemarks(remarks);
+		//测试
+		System.out.println(code);
+		System.out.println(comPCode);
+		System.out.println(nums);
+		System.out.println(numSprice);
+		System.out.println(contacter);
+		System.out.println(telephone);
+		System.out.println(state);
+		System.out.println(remarks);
+		
+		
 		//写回数据库
 		CashInqueryDao ciDao=new CashInqueryDaoImpl();
 		int ret=ciDao.addCashInqueryList(cashInquery);
