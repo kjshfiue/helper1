@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,11 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.helper.entity.StockIn;
+import com.helper.entity.StockOut;
 import com.helper.service.StockInService;
+import com.helper.service.StockOutService;
 import com.helper.service.impl.StockInServiceImpl;
-import com.helper.tools.DateUtil;
+import com.helper.service.impl.StockOutServiceImpl;
 
-public class AddStockInServlet extends HttpServlet {
+public class AddStockOutServlet extends HttpServlet {
 
 	/**
 	 * The doGet method of the servlet. <br>
@@ -31,7 +32,7 @@ public class AddStockInServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		this.doPost(request, response);
+			this.doPost(request, response);
 	}
 
 	/**
@@ -49,45 +50,45 @@ public class AddStockInServlet extends HttpServlet {
 
 		response.setContentType("text/json;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
-		StockIn stockIn = new StockIn();
+		StockOut stockOut = new StockOut();
 		//System.out.println("ÄãµÄ±³°ü"+request.getParameter("code"));
-		stockIn.setCode(request.getParameter("code"));
+		stockOut.setCode(request.getParameter("code"));
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		//System.out.println("ÄãÅ£"+request.getParameter("inDate"));
+		//System.out.println("ÄãÅ£"+request.getParameter("outDate"));
 		try {
-			stockIn.setInDate(sdf.parse(request.getParameter("inDate")));
+			stockOut.setOutDate(sdf.parse(request.getParameter("outDate")));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		stockIn.setSupplierCode(request.getParameter("supplierCode"));
-		stockIn.setContActer(request.getParameter("contActer"));
-		stockIn.setTeltphone(request.getParameter("teltphone"));
-		stockIn.setFax(request.getParameter("fax"));
-		stockIn.setInType(request.getParameter("inType"));
-		stockIn.setIsInVoice(request.getParameter("isInVoice"));
-		stockIn.setRemarks(request.getParameter("remarks"));
+		stockOut.setCustomerCode(request.getParameter("customerCode"));
+		stockOut.setContActer(request.getParameter("contActer"));
+		stockOut.setTelphone(request.getParameter("telphone"));
+		stockOut.setFax(request.getParameter("fax"));
+		stockOut.setOutType(request.getParameter("outType"));
+		stockOut.setIsInVoice(request.getParameter("isInVoice"));
 		
-		//stockIn.setIsRoad(request.getParameter("isRoad"));
+		stockOut.setRemarks(request.getParameter("remarks"));
+		
+		//stockOut.setIsRoad(request.getParameter("isRoad"));
 		//System.out.println("¶ßÀ²AÃÎ"+request.getParameter("isShow"));
 		//stockIn.setIsShow(request.getParameter("isShow"));
-		
 //		try {
-//			stockIn.setAddDate(sdf.parse(request.getParameter("addDate")));
+//			stockOut.setAddDate(sdf.parse(request.getParameter("addDate")));
 //		} catch (ParseException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		//stockIn.setNums(Double.parseDouble(request.getParameter("nums")));
-		//stockIn.setNumSprice(Double.parseDouble("numSprice"));
-		//stockIn.setState(request.getParameter("state"));
-		//stockIn.setCompCode(request.getParameter("compCode"));
-		//stockIn.setAddUser(request.getParameter("addUser"));
-		//stockIn.setAddUserName(request.getParameter("addUserName"));
-		//stockIn.setAddIp(request.getParameter("addIp"));
-		StockInService stockInService = new StockInServiceImpl();
-		int ret=stockInService.insertStockIn(stockIn);
+		//stockOut.setNums(Double.parseDouble(request.getParameter("nums")));
+		//stockOut.setNumSprice(Double.parseDouble("numSprice"));
+		//stockOut.setState(request.getParameter("state"));
+		//stockOut.setCompCode(request.getParameter("compCode"));
+		//stockOut.setAddUser(request.getParameter("addUser"));
+		//stockOut.setAddUserName(request.getParameter("addUserName"));
+		//stockOut.setAddIp(request.getParameter("addIp"));
+		
+		StockOutService stockOutService = new StockOutServiceImpl();
+		int ret=stockOutService.insertStockOut(stockOut);
 	}
 	
-
 }

@@ -7,6 +7,8 @@ import java.util.Map;
 import com.helper.dao.StockInDao;
 import com.helper.dao.impl.StockInDaoImpl;
 import com.helper.entity.PageBean;
+import com.helper.entity.StockInDetail;
+
 import com.helper.entity.StockIn;
 import com.helper.service.StockInService;
 

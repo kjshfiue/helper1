@@ -223,7 +223,7 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 				pstm.add(map.get("date2"));
 			}
 			if(map.get("name")!=null && map.get("name")!=""){
-				sql += " and supplierCode=? ";
+				sql += " and suppliercode=? ";
 				pstm.add(map.get("name"));
 			}
 		}

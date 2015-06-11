@@ -40,8 +40,8 @@
 		columns:[[
 		{field:'select',checkbox:true},
 		{field:'code',title:'出库单号',width:40},
-		{field:'inDate',title:'出库日期',width:40,editor:{ type: 'validatebox', options: { required: true}}},
-		{field:'supplierCode',title:'客户名称',width:40,editor:{ type: 'validatebox', options: { required: true}}},
+		{field:'outDate',title:'出库日期',width:40,editor:{ type: 'validatebox', options: { required: true}}},
+		{field:'customerCode',title:'客户名称',width:40,editor:{ type: 'validatebox', options: { required: true}}},
 		{field:'nums',title:'数量',width:40,editor:{ type: 'validatebox', options: { required: true}}},
 		{field:'numSprice',title:'总货值',width:40,editor:{ type: 'validatebox', options: { required: true}}},
 		{field:'state',title:'审核状态',width:40,editor:{ type: 'validatebox', options: { required: true}}},
@@ -52,16 +52,47 @@
 										
 					return content;
 				}}		
-		]]			
+		]],
+		
+		onDblClickRow: function(rowIndex,rowData){
+			$("#code1").html(rowData.code);
+			$("#stockOut_order_detail").datagrid("reload",{'outCode':rowData.code});
+		}			
 		});
+		
+		$("#stockOut_order_detail").datagrid({
+		fit:true,
+		fitColumns:true,
+		url:'kucun/DescriptionStockInServlet',
+		dataType:'json',
+		idField:'code',
+		columns:[[
+		
+		//{field:'code',title:'出库明细主键',width:40},
+		//{field:'pCode',title:'配件名称',width:40},
+		//{field:'nums',title:'配件品牌',width:40},
+		//{field:'numSprice',title:'配件型号',width:40},
+		//{field:'totalMoney',title:'金额',width:40},
+		
+		{field:'inCode',title:'出库单据编号',width:40},
+		{field:'orderCode',title:'订单编号',width:40},
+		{field:'pCode',title:'配件编号',width:40},
+		{field:'nums',title:'数量',width:40},
+		{field:'price',title:'单价',width:40},
+		{field:'wareHouse',title:'所属仓库',width:40},
+		{field:'remarks',title:'备注',width:40}
+		]]
+		
+			
+	});
 				
 }); 
-//删除入库单据
+//删除出库单据
 function del(code){
 	$.messager.confirm('确认','你确认要删除选中的数据吗？',function(r){
 		if(r){
 			$.ajax({
-				url:'kucun/deleteStockInDanJuServlet',
+				url:'kucun/deleteStockOutDanJuServlet',
 				dataType:'json',
 				type:'post',
 				data:{'code':code},
@@ -87,17 +118,17 @@ function saveVal(code,index){
 $.messager.confirm('信息提示','你要修改选中的数据吗?',function(r){
 		if(r){
 		var row = $("#mydiv2").datagrid("getRows")[index];
-		var inDate=row.inDate;
-		var supplierCode=row.supplierCode;
+		var outDate=row.outDate;
+		var customerCode=row.customerCode;
 		var nums=row.nums;
 		var numSprice=row.numSprice;
 		var state=row.state;
 		var addUserName=row.addUserName;
 			$.ajax({
-				url:'kucun/updateStockInDanJuServlet',
+				url:'kucun/updateStockOutDanJuServlet',
 				type:'post',
 				dataType:'json',
-				data:{'code':code,'inDate':inDate,'supplierCode':supplierCode,'nums':nums,
+				data:{'code':code,'outDate':outDate,'customerCode':customerCode,'nums':nums,
 				'numSprice':numSprice,'state':state,'addUserName':addUserName},
 				success:function(data){
 					if(data.ret==1){
@@ -114,7 +145,7 @@ $.messager.confirm('信息提示','你要修改选中的数据吗?',function(r){
 		}
 	}); 
 }
-//修改入库单据
+//修改出库单据
 function update(code,index){
    var val=$("input[id='updateButton']").val();
    if(val=="修改"){	
@@ -129,7 +160,7 @@ function update(code,index){
    } 
    
 }
-//多条件搜索入库单据
+//多条件搜索出库单据
 function searchAll(){
  var code = $("#code").val();
  var date1= $("#date1").datebox("getValue");
@@ -140,7 +171,7 @@ function searchAll(){
  
  }
  
-//批量删除
+//批量删除出库单
 function delBatchRow(){
 	var rows = $("#mydiv2").datagrid("getSelections");
 	if(rows.length==0){
@@ -152,7 +183,7 @@ function delBatchRow(){
 				var ret = "rows";
 				for(var i=0;i<rows.length;i++){
 					$.ajax({
-						url:'kucun/deleteStockInDanJuServlet',
+						url:'kucun/deleteStockOutDanJuServlet',
 						dataType:'json',
 						type:'post',
 						data:{'code':rows[i].code},
@@ -183,7 +214,7 @@ function export1(){
  	var obj={'code':code,'date1':date1,'date2':date2,'name':name};
 	//alert(1);
 	$.ajax({
-		url:'kucun/ExportStockInExcelServlet',
+		url:'kucun/ExportStockOutExcelServlet',
 		dataType:'json',
 		type:'post',
 		data:obj,
@@ -198,7 +229,7 @@ function export1(){
 function add(){
 	$("#add_Dialog").fadeIn("slow");
 	$("#add_Dialog").dialog({
-		title:"添加入库单",
+		title:"添加出库单",
 		modal:true,
 		close:false,
 		width:550,
@@ -206,6 +237,7 @@ function add(){
 	});
 	$("#myform1").form("reset");
 	$("#saveButton").attr("href","javascript:save();");
+	alert(1);
 }
 function closeDialog(dialogId){
 	 $(dialogId).find("form").form("reset");
@@ -230,7 +262,7 @@ function save(){
 	       cache: true,//读取缓存
 	       type:'post',
 	       dataType:'json',
-	       url:"kucun/AddStockInServlet",
+	       url:"kucun/AddStockOutServlet",
 	       data:$('#myform1').serialize(),// 你的formid
 	       async: false,
 	       error: function(request) {
@@ -281,32 +313,32 @@ function save(){
     	<table border="1" cellspacing="0">
 	    	<tr>
 	    		<td><span class="red">*</span>出库单号:</td>
-	    		<td><input type="text" name="danhao" /></td>
+	    		<td><input type="text" name="code" /></td>
 	    		<td><span class="red">*</span>出库日期:</td>
-	    		<td><input type="text" name="date" /></td>
+	    		<td><input type="text" name="outDate" /></td>
 	    	</tr>
 	    	<tr>
 	    		<td><span class="red">*</span>客户名称:</td>
-	    		<td><input type="text" name="supplyName" /></td>
+	    		<td><input type="text" name="customerCode" /></td>
 	    		<td><span class="red">*</span>联系人员:</td>
-	    		<td><input type="text" name="linkName" /></td>
+	    		<td><input type="text" name="contActer" /></td>
 	    	</tr>
 	    	<tr>
 	    		<td>电话:</td>
-	    		<td><input type="text" name="tel" /></td>
+	    		<td><input type="text" name="telphone" /></td>
 	    		<td>传真:</td>
 	    		<td><input type="text" name="fax" /></td>
 	    	</tr>
 	    	<tr>
-	    		<td>入库类型:</td>	
+	    		<td>出库类型:</td>	
 	    		<td>
-	    			<input type="radio" name="cuku" value="正常入库" checked="checked"/>正常入库
-	    			<input type="radio" name="cuku" value="冲抵入库"/>冲抵入库
+	    			<input type="radio" name="outType" value="1" checked="checked"/>正常出库
+	    			<input type="radio" name="outType" value="0"/>销售出库
 	    		</td>
 	    		<td>是否开票:</td>	
 	    		<td>
-	    			<input type="radio" name="isInVoice" value="是" checked="checked"/>是
-	    			<input type="radio" name="isInVoice" value="否"/>否
+	    			<input type="radio" name="isInVoice" value="1" checked="checked"/>是
+	    			<input type="radio" name="isInVoice" value="0"/>否
 	    		</td>
 	    	</tr>
 	    	<tr>
@@ -318,15 +350,20 @@ function save(){
 		</table>
 		<br />
 		<a href="javascript:add();"><input type="button" value="新增"/></a>
-		<a id="saveButton" href="#"><input type="button" value="采购订单"/></a>
+		<a id="caiGou" href="#"><input type="button" value="销售订单"/></a>
 		<a id="addPeiJian" href="#"><input type="button" value="添加配件"/></a>
 		<a id="saveButton" href="javascript:save();"><input type="button" value="保存"/></a>
 		<a id="shenHe" href="#"><input type="button" value="审核"/></a>
-		<a id="order1" href="#"><input type="button" value="生成采购付款"/></a>
-		<a id="order2" href="#"><input type="button" value="生成采购收票"/></a>
+		<a id="cheXiao" href="#"><input type="button" value="撤销"/></a>
+		<a id="order1" href="#"><input type="button" value="生成销售收款"/></a>
+		<a id="order2" href="#"><input type="button" value="生成销售开票"/></a>
 		<a href="javascript:print();"><input type="button" value="打印"/></a>
 		<a href="javascript:close();"><input type="button" value="关闭"/></a>
     	</form>
     </div>
+    
+     <div id="stockOut_order"></div>
+    <div id="center">单据标号为:<span id="code1"></span>的明细如下所示!</div>
+    <div id="stockOut_order_detail"></div>
   </body>
 </html>

@@ -27,7 +27,7 @@
 		$("#add_Dialog").dialog("close");
 
 		$("#mydiv2").datagrid({
-		fit:true,
+		//fit:true,
 		fitColumns:true,
 		url:'kucun/DisplayStockInServlet',
 		dataType:'json',
@@ -52,8 +52,39 @@
 										
 					return content;
 				}}		
-		]]			
+		]],
+		
+		onDblClickRow: function(rowIndex,rowData){
+			$("#code1").html(rowData.code);
+			$("#stockIn_order_detail").datagrid("reload",{'inCode':rowData.code});
+		}			
 		});
+		
+		$("#stockIn_order_detail").datagrid({
+		fit:true,
+		fitColumns:true,
+		url:'kucun/DescriptionStockInServlet',
+		dataType:'json',
+		idField:'code',
+		columns:[[
+		
+		//{field:'code',title:'入库明细主键',width:40},
+		//{field:'pCode',title:'配件名称',width:40},
+		//{field:'nums',title:'配件品牌',width:40},
+		//{field:'numSprice',title:'配件型号',width:40},
+		//{field:'totalMoney',title:'金额',width:40},
+		
+		{field:'inCode',title:'入库单据编号',width:40},
+		{field:'orderCode',title:'订单编号',width:40},
+		{field:'pCode',title:'配件编号',width:40},
+		{field:'nums',title:'数量',width:40},
+		{field:'price',title:'单价',width:40},
+		{field:'wareHouse',title:'所属仓库',width:40},
+		{field:'remarks',title:'备注',width:40}
+		]]
+		
+
+   });
 				
 }); 
 //删除入库单据
@@ -246,34 +277,8 @@ function save(){
 		$.messager.confirm("信息提示","添加失败！表单不合法！");
 	}
 	
-	$("dbClick1").datagrid({
-		fit:true,
-		fitColumns:true,
-		url:'kucun/DescriptionStockInServlet',
-		dataType:'json',
-		idField:'code',
-		singleSelect:false,
-		toolbar:"#dbClick",
-		onDblClickRow: function(rowIndex,rowData){
-			var selected = $('#dbClick1').datagrid('getSelected');
-			    if (selected){
-			    	$.messager.confirm("信息提示","此行已被选中!");
-			    }
-		},
-		
-		columns:[[
-		{field:'select',checkbox:true},
-		{field:'code',title:'入库单号',width:40},
-		{field:'inDate',title:'入库日期',width:40},
-		{field:'supplierCode',title:'供应商名',width:40},
-		{field:'nums',title:'数量',width:40},
-		{field:'numSprice',title:'总货值',width:40},
-		{field:'state',title:'审核状态',width:40},
-		{field:'addUserName',title:'操作员',width:40},
-		]],
-		success:function(){}
 
-   
+	
 }
 	</script>
   </head>
@@ -366,7 +371,8 @@ function save(){
 		<a href="javascript:close();"><input type="button" value="关闭"/></a>
     	</form>
     </div>
-    <div id="dbClick">单据标号为:<span id="code1"></span>的明细如下所示!</div>
-    <div id="dbClick1"></div>
+    <div id="stockIn_order"></div>
+    <div id="center">单据标号为:<span id="code1"></span>的明细如下所示!</div>
+    <div id="stockIn_order_detail"></div>
   </body>
 </html>

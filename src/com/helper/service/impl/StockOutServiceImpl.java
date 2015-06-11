@@ -1,6 +1,8 @@
 package com.helper.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.helper.dao.StockOutDao;
 import com.helper.dao.impl.StockOutDaoImpl;
@@ -14,13 +16,13 @@ public class StockOutServiceImpl implements StockOutService {
 	@Override
 	public int insertStockOut(StockOut stockOut) {
 		// TODO Auto-generated method stub
-		return 0;
+		return stockOutDao.insert(stockOut);
 	}
 
 	@Override
 	public int deleteStockOut(String code) {
 		// TODO Auto-generated method stub
-		return 0;
+		return stockOutDao.delete(code);
 	}
 
 	@Override
@@ -30,9 +32,9 @@ public class StockOutServiceImpl implements StockOutService {
 	}
 
 	@Override
-	public int updateStockOut(String code) {
+	public int updateStockOut(String code,StockOut stockOut) {
 		// TODO Auto-generated method stub
-		return 0;
+		return stockOutDao.update(code,stockOut);
 	}
 
 	@Override
@@ -40,6 +42,12 @@ public class StockOutServiceImpl implements StockOutService {
 			HashMap<String, String> map) {
 		// TODO Auto-generated method stub
 		return stockOutDao.searchPageBean(pageNo, pageSize, map);
+	}
+
+	@Override
+	public List<Map<String, Object>> findAllStock(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return stockOutDao.find(map);
 	}
 
 }
