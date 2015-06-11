@@ -1,18 +1,20 @@
 package com.helper.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.helper.service.SaleOrderService;
 import com.helper.service.impl.SaleOrderServiceImpl;
 
-public class DelSaleOrderServlet extends HttpServlet {
+public class DelBatchSaleOrderServlet extends HttpServlet {
 	private SaleOrderService saleOrderService = new SaleOrderServiceImpl();
 	/**
 	 * The doGet method of the servlet. <br>
@@ -44,16 +46,21 @@ public class DelSaleOrderServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/json; charset=utf-8");
-		request.setCharacterEncoding("utf-8");
-		String code = request.getParameter("code");
-		int ret = saleOrderService.deleteByCode(code);
+		request.getParameter("utf-8");
+		String data = request.getParameter("data");
+		JSONArray jsonArray = JSONArray.fromObject(data);
+		List<String> codeList = (List<String>)JSONArray.toCollection(jsonArray);
+		int ret = saleOrderService.deleteBatchByCode(codeList);
 		JSONObject json = new JSONObject();
 		if(ret==1){
-			json.put("message", "É¾³ý³É¹¦£¡");
+			json.put("message", "ÅúÁ¿É¾³ý³É¹¦£¡");
 		}else{
-			json.put("message", "É¾³ýÊ§°Ü£¡");
+			json.put("message", "ÅúÁ¿É¾³ýÊ§°Ü£¡");
 		}
 		response.getWriter().println(json.toString());
+		
+		
+		
 		
 	}
 

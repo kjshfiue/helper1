@@ -103,7 +103,11 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 	@Override
 	public int deleteByCode(String code) {
 		// TODO Auto-generated method stub
-		String sql1 = "delete from SALEORDER where code="+code;
+		String sql1 = "delete from SALEORDER where code='"+code+"'";
+//		System.out.println("É¾³ýÓï¾ä"+sql1);
+//		int ret = super.executeUpdate(sql1);
+//		return ret;
+
 		String sql2 = "delete from SALORDER_DETAIL where code="+code;
 		Connection conn = super.getConnection();
 		int ret[] = new int[2];
@@ -120,34 +124,36 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 		} finally{
 			super.closeAll();
 		}
-		if(ret[0]==1&&ret[1]==1){
+		if(ret[0]==1){
 			return 1;
 		}
 		return 0;
 	}
-
+	
 	@Override
 	public int deleteBatchByCode(List<String> codeList) {
 		// TODO Auto-generated method stub
-		String sql1 = "delete from SALEORDER where code=";
-		String sql2 = "delete from SALORDER_DETAIL where code=";
+		String sql1 = "delete from SALEORDER where code='";
+		//String sql2 = "delete from SALORDER_DETAIL where code='";
 		Connection conn = super.getConnection();
-		int ret[] = new int[2];
+		//int ret[] = new int[2];
 		try {
 			Statement state = conn.createStatement();
 			conn.setAutoCommit(false);
 			for(int i=0;i<codeList.size();i++){
 				String code = codeList.get(i);
-				state.addBatch(sql1+code);
-				state.addBatch(sql2+code);
+				state.addBatch(sql1+code+"'");
+				//state.addBatch(sql2+code+"'");
 			}
-			ret = state.executeBatch();
+			state.executeBatch();
 			conn.commit();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally{
+			super.closeAll();
 		}
-		return ret[0];
+		return 1;
 	}
 
 	@Override

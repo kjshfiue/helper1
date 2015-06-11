@@ -32,7 +32,9 @@
 		var d = date.getDate();
 		return y+'-'+m+'-'+d;
 	}
+
 	$(function(){
+	 	$.messager.defaults = { ok:"确认", cancel:"取消" };
 		$("#sale_order").datagrid({
 			url:'sale/GetSaleOrderJSONServlet',
 			//dataType:'json',
@@ -64,7 +66,7 @@
 			//fit:true,
 			toolbar:"#toolbar",
 			pagination:true,
-			pageList:[3,5,10,20],
+			pageList:[10],
 			onClickRow:function(idx,row){
 				$("#code1").html(row.code);
 				$("#sale_order_detail").datagrid("reload",{'code':row.code});
@@ -105,26 +107,56 @@
 		$("#search_form").form("reset");
 	}
 	function del(code){
-		$.ajax({
-			url:"sale/DelSaleOrderServlet",
-			dataType:"json",
-			type:"post",
-			data:"{'code':"+code+"}",
-			success:function(data){
-				$.messager.alert("信息提示",data.message);
-				$("#sale_order").datagrid("reload");
-			},
-			error:function(data){
-				$.messager.alert("信息提示","删除请求失败");
-			},
-			
+		$.messager.confirm("确认","确认删除吗？",			
+		  function(r){
+			if(r){
+				$.ajax({
+					url:"sale/DelSaleOrderServlet",
+					dataType:"json",
+					type:"post",
+					data:{'code':code},
+					success:function(data1){
+						$.messager.alert("信息提示",data1.message,"info");
+						$("#sale_order").datagrid("reload");
+					},
+					error:function(data){
+						$.messager.alert("信息提示","删除请求失败","error");
+					}
+					
+				});
+			}
 		});
+		
 	}
 	function delBatch(){
-		var rows=$("#sale_order").datagrid("getSelections");
-		for(row in rows){
-			
-		}
+		$.messager.confirm("确认","确认删除选中订单吗？",			
+		  function(r){
+			if(r){
+				var rows=$("#sale_order").datagrid("getSelections");
+				var del="["
+				for(var i=0;i<rows.length;i++){
+					var row = rows[i];
+					if(i<rows.length-1){
+						del += "'"+row.code+"',";
+					}else{
+						del += "'"+row.code+"'";
+					}
+				}
+				del += "]";
+				$.ajax({
+					url:"sale/DelBatchSaleOrderServlet",
+					type:"post",
+					dataType:"json",
+					data:{'data':del},
+					success:function(data){
+						$.messager.alert("信息提示",data.message,"info");
+					},
+					error:function(data){
+						$.messager.alert("信息提示","删除请求失败","error");
+					}
+				});
+			}
+		});
 	}
 	function update(code){
 		var val = $("input[name='up"+code+"']").val();
@@ -148,7 +180,7 @@
 				dataType:"json",
 				success:function(data){
 					$("#sale_order").datagrid("reload");
-					$.messager.alert("信息提示",data.message);
+					$.messager.alert("信息提示",data.message,"info");
 					
 				}
 			});
@@ -164,6 +196,9 @@
 	function add(){
 		parent.addTabs("销售订单","sale/sale_dingdan.jsp");
 		//window.open("sale/sale_dingdan.jsp");
+	}
+	function reload1(){
+		self.location.reload();
 	}
 	</script>
 
@@ -183,6 +218,7 @@
     <span>客户名称：</span><input type="text" name="customerCode" />
     <a href="javaScript:searchSaleOrder();"><input type="button" value="搜    索" /></a>
     <a href="javaScript:resetSearchBox();"><input type="button" value="重    置" /></a>
+    <a href="javaScript:reload1();"><input type="button" value="刷   新" /></a>
     <br />
     <hr />
     <a  class="easyui-linkButton" data-options="iconCls:'icon-search',plain:true" onClick="searchSaleOrder();">查询</a>
