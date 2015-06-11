@@ -63,6 +63,16 @@ function closeTabs(title){
 </div>
 <div data-options="region:'west',title:'导航',split:true" style="width:150px;" >
 	<div id="nav"  class="easyui-accordion"   data-options="fit:true,selected:0">
+	
+	<div title="基础管理" data-options="iconCls:'icon-search'">
+           <ul>
+        	 <li><a href="javascript:addTabs('往来单位管理','base/coslinkmanger.html')">往来单位管理</a></li>
+        	 <li><a href="javascript:addTabs('字典内容管理','base/base_content.jsp')">字典内容管理</a></li>
+             <li><a href="javascript:addTabs('配件类别管理','base/base_content.jsp')">配件类别管理</a></li>
+             <li><a href="javascript:addTabs('配件信息管理','Xxgl/PeiJianMessage.jsp')">配件信息管理</a></li>
+             <li><a href="javascript:addTabs('公司信息管理','manage/BaseCompany.jsp')">公司信息管理</a></li>
+           </ul>
+        </div>
     	<div title="销售管理" data-options="iconCls:'icon-search'">
            <ul>
         	 <li><a href="javascript:addTabs('销售报价管理','sale/')">销售报价管理</a></li>
@@ -71,15 +81,14 @@ function closeTabs(title){
              <li><a href="javascript:addTabs('销售合同管理','')">销售合同管理</a></li>
            </ul>
         </div> 
-    	<div title="基础管理" data-options="iconCls:'icon-search'">
+    	
+        
+        <div title="库存管理" data-options="iconCls:'icon-search'">
            <ul>
-        	 <li><a href="javascript:addTabs('往来单位管理','base/coslinkmanger.html')">往来单位管理</a></li>
-        	 <li><a href="javascript:addTabs('字典内容管理','base/base_content.jsp')">字典内容管理</a></li>
-             <li><a href="javascript:addTabs('配件类别管理','base/base_content.jsp')">配件类别管理</a></li>
-             <li><a href="javascript:addTabs('配件信息管理','Xxgl/PeiJianMessage.jsp')">配件信息管理</a></li>
-             <li><a href="javascript:addTabs('公司信息管理','BaseCompany.jsp')">公司信息管理</a></li>
+        	 <li><a href="javascript:addTabs('入库单据管理','kucun/manageStockIn.jsp')">入库单据管理</a></li>
+        	 <li><a href="javascript:addTabs('出库单据管理','kucun/manageStockOut.jsp')">出库单据管理</a></li>
            </ul>
-        </div> 
+        </div>  
 	</div>
 </div>
 <div data-options="region:'center',split:true,iconCls:'icon-reload'">
