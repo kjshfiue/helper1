@@ -85,7 +85,7 @@ public class GetSaleOrderJSONServlet extends HttpServlet {
 		
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class, new JSONDateProcessor("yyyy-MM-dd"));
-		
+		////
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.putAll( map22, jsonConfig);
 		response.getWriter().println(jsonObject.toString());
