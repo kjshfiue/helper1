@@ -102,7 +102,7 @@ public class ForUpDateXjMessage extends HttpServlet {
 		
 		OrderImpl oi=new OrderImpl();
 		int flag=oi.updateMessage(ord);
-		//System.out.println(flag);
+		System.out.println(flag);
 		out.print(flag);
 		
 		out.flush();

@@ -269,6 +269,7 @@ $('#win').window('open');
 
 //修改并提交
 function updateval(){
+
 var code=$("input[name='bh']").val();
 	var ddrq=$("input[name='ddrq']").val();
 	var gys=$("input[name='gys']").val();
@@ -293,7 +294,7 @@ var code=$("input[name='bh']").val();
 	var czip=$("input[name='czip']").val();
 	var dataMM={"code":code,"ddrq":ddrq,"gys":gys,"lxr":lxr,"dh":dh,"cz":cz,"ysfs":ysfs,"jhrq":jhrq,"ywry":ywry,"bz":bz,"xsfs":xsfs,"pjsl":pjsl,"cgzj":cgzj,"sh":sh,"czrq":czrq,"czyh":czyh,"czyhm":czyhm,"czip":czip};
 	$.ajax({
-	url:'/helper/UpDateXjMessage.do',
+	url:'/helper/ForUpDateXjMessage.do',
 	data:dataMM,
 	success:function(data){
 		if(data==1){
