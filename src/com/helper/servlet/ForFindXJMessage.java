@@ -69,7 +69,7 @@ public class ForFindXJMessage extends HttpServlet {
 		int first=Integer.parseInt(pageNo);
 		int second=Integer.parseInt(pageSize);
 		String code=request.getParameter("codes");
-		//System.out.println(code);
+		//code="'"+code+"'";
 		NewCashInqueryDaoImpl ncid=new NewCashInqueryDaoImpl();
 		List<NewCashInquery> list=ncid.findCashInquery(code, first, second);
 		
