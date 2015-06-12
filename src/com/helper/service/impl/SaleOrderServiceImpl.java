@@ -1,6 +1,7 @@
 package com.helper.service.impl;
 
 import java.util.List;
+
 import java.util.Map;
 
 import com.helper.dao.SaleOrderDao;
@@ -17,6 +18,7 @@ public class SaleOrderServiceImpl implements SaleOrderService {
 	public PageBean findSaleOrder(int pageNo, int pageSize, Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return saleOrderDao.findSaleOrder(pageNo,pageSize,map);
+		
 	}
 
 	@Override
