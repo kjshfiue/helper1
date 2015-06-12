@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-import net.sf.json.processors.JsDateJsonBeanProcessor;
 
 import com.helper.entity.PageBean;
 import com.helper.service.StockInService;
@@ -67,7 +66,7 @@ public class DisplayStockInServlet extends HttpServlet {
 		if(pageSize==null||pageSize==""){
 			pageSize="5";
 		}
-		System.out.println("方象"+pageNo+"--"+pageSize);
+		//System.out.println("方象"+pageNo+"--"+pageSize);
 		String code = request.getParameter("code");
 		String date1 = request.getParameter("date1");
 		String date2 = request.getParameter("date2");
@@ -77,15 +76,17 @@ public class DisplayStockInServlet extends HttpServlet {
 		if(code==null||code==""){
 			code = "";
 		}
-		if(date1==null||date1==""){
-			date1 = "";
+		if(date1!=null&&date1!=""){
+			date1 = DateUtil.toSqlDateString(date1);
 		}
-		if(date2==null||date2==""){
-			date2 = "";
+		if(date2!=null&&date2!=""){
+			date2 = DateUtil.toSqlDateString(date2);
 		}
 		map.put("code", code);
-		map.put("date1", DateUtil.toSqlDateString(date1));
-		map.put("date2", DateUtil.toSqlDateString(date2));
+		//System.out.println("込込"+date1);
+		map.put("date1", date1);
+		System.out.println("込込*"+date2);
+		map.put("date2", date2);
 		map.put("name", name);
 		PageBean pageBean = stockInService.searchPageBean
 				(Integer.parseInt(pageNo), Integer.parseInt(pageSize), map);

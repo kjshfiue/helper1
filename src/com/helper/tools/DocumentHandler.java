@@ -53,8 +53,6 @@ public class DocumentHandler {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-	
 			
 			//Êä³öÎÄ±¾
 			try {

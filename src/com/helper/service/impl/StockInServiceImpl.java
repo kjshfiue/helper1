@@ -1,10 +1,14 @@
 package com.helper.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.helper.dao.StockInDao;
 import com.helper.dao.impl.StockInDaoImpl;
 import com.helper.entity.PageBean;
+import com.helper.entity.StockInDetail;
+
 import com.helper.entity.StockIn;
 import com.helper.service.StockInService;
 
@@ -12,9 +16,9 @@ public class StockInServiceImpl implements StockInService {
 	
 	StockInDao stockInDao = new StockInDaoImpl();
 	@Override
-	public int insertStockIn(StockIn stockin) {
+	public int insertStockIn(StockIn stockIn) {
 		// TODO Auto-generated method stub
-		return 0;
+		return stockInDao.insert(stockIn);
 	}
 
 	@Override
@@ -35,11 +39,10 @@ public class StockInServiceImpl implements StockInService {
 		// TODO Auto-generated method stub
 		return stockInDao.findAll();
 	}
-
 	@Override
-	public StockIn findStockIn(String code) {
+	public List<Map<String,Object>> findAllStock(HashMap<String,String> map) {
 		// TODO Auto-generated method stub
-		return stockInDao.findById(code);
+		return stockInDao.find(map);
 	}
 
 	@Override
@@ -48,5 +51,12 @@ public class StockInServiceImpl implements StockInService {
 		// TODO Auto-generated method stub
 		return stockInDao.searchPageBean(pageNo, pageSize, map);
 	}
+
+	@Override
+	public StockIn findStockIn(String code) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

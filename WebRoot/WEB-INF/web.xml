@@ -118,6 +118,14 @@
     <servlet-class>com.helper.servlet.GetBaseCashInqueryServlet</servlet-class>
   </servlet>
   <servlet>
+
+
+   
+    <servlet-name>ForFindOrders</servlet-name>
+    <servlet-class>com.helper.servlet.ForFindOrders</servlet-class>
+  </servlet>
+  <servlet>
+
     <servlet-name>DeleteCashInqueryServlet</servlet-name>
     <servlet-class>com.helper.servlet.DeleteCashInqueryServlet</servlet-class>
   </servlet>
@@ -130,12 +138,22 @@
     <servlet-class>com.helper.servlet.AddCashInqureyServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>ForAddorder</servlet-name>
+    <servlet-class>com.helper.servlet.ForAddorder</servlet-class>
+  </servlet>
+  <servlet>
+   
+    <servlet-name>ForFindXJMessage</servlet-name>
+    <servlet-class>com.helper.servlet.ForFindXJMessage</servlet-class>
+  </servlet>
+
 
 
   <servlet>
     <servlet-name>getStockIn</servlet-name>
     <servlet-class>com.helper.servlet.getStockIn</servlet-class>
-  </servlet>
+ </servlet>
   <servlet>
     <servlet-name>DisplayStockInServlet</servlet-name>
     <servlet-class>com.helper.servlet.DisplayStockInServlet</servlet-class>
@@ -154,6 +172,8 @@
     <servlet-class>com.helper.servlet.UpdateSaleOrderServlet</servlet-class>
   </servlet>
   <servlet>
+
+
     <servlet-name>ExportCashInqueryExcelServlet</servlet-name>
     <servlet-class>com.helper.servlet.ExportCashInqueryExcelServlet</servlet-class>
   </servlet>
@@ -167,8 +187,8 @@
     <servlet-name>GetBasePartServlet</servlet-name>
     <servlet-class>com.helper.servlet.GetBasePartServlet</servlet-class>
   </servlet>
-
   <servlet>
+
     <servlet-name>AddSaleOderServlet</servlet-name>
     <servlet-class>com.helper.servlet.AddSaleOderServlet</servlet-class>
   </servlet>
@@ -177,9 +197,25 @@
     <servlet-class>com.helper.servlet.DelSaleOrderServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>DelBatchSaleOrderServlet</servlet-name>
-    <servlet-class>com.helper.servlet.DelBatchSaleOrderServlet</servlet-class>
+   
+    <servlet-name>ForUpDateXjMessage</servlet-name>
+    <servlet-class>com.helper.servlet.ForUpDateXjMessage</servlet-class>
   </servlet>
+  <servlet>
+   
+    <servlet-name>FordeleteXJmessage</servlet-name>
+    <servlet-class>com.helper.servlet.FordeleteXJmessage</servlet-class>
+  </servlet>
+  <servlet>
+   
+    <servlet-name>ForDeleteAllOrdMessages</servlet-name>
+    <servlet-class>com.helper.servlet.ForDeleteAllOrdMessages</servlet-class>
+  </servlet>
+
+
+
+
+
 
 
 
@@ -300,6 +336,21 @@
     <url-pattern>/base/GetBaseCashInqueryServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+
+
+    <servlet-name>ForFindOrders</servlet-name>
+    <url-pattern>/ForFindOrders.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ForAddorder</servlet-name>
+    <url-pattern>/ForAddorder.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ForFindXJMessage</servlet-name>
+    <url-pattern>/ForFindXJMessage.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+
     <servlet-name>DeleteCashInqueryServlet</servlet-name>
     <url-pattern>/base/DeleteCashInqueryServlet</url-pattern>
   </servlet-mapping>
@@ -312,6 +363,7 @@
     <url-pattern>/base/AddCashInqureyServlet</url-pattern>
      </servlet-mapping>
  <servlet-mapping>
+
     <servlet-name>getStockIn</servlet-name>
     <url-pattern>/kucun/getStockIn</url-pattern>
   </servlet-mapping>
@@ -333,6 +385,7 @@
     <url-pattern>/sale/UpdateSaleOrderServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+
     <servlet-name>ExportCashInqueryExcelServlet</servlet-name>
     <url-pattern>/base/ExportCashInqueryExcelServlet</url-pattern>
   </servlet-mapping>
@@ -343,7 +396,7 @@
   <servlet-mapping>
     <servlet-name>GetBasePartServlet</servlet-name>
     <url-pattern>/base/GetBasePartServlet</url-pattern>
-</servlet-mapping>
+ </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AddSaleOderServlet</servlet-name>
     <url-pattern>/sale/AddSaleOderServlet</url-pattern>
@@ -353,9 +406,18 @@
     <url-pattern>/sale/DelSaleOrderServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>DelBatchSaleOrderServlet</servlet-name>
-    <url-pattern>/sale/DelBatchSaleOrderServlet</url-pattern>
+    <servlet-name>ForUpDateXjMessage</servlet-name>
+    <url-pattern>/ForUpDateXjMessage.do</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FordeleteXJmessage</servlet-name>
+    <url-pattern>/deleteXJmessage.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ForDeleteAllOrdMessages</servlet-name>
+    <url-pattern>/DeleteAllOrderMessages.do</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
