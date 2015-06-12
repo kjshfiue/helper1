@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>基础管理</title>
+<title>主页</title>
 <script src="lib/jquery-1.7.2.js" type="text/javascript"></script>
 <script src="lib/jquery.easyui.min.js" type="text/javascript"></script>
 <link href="themes/default/easyui.css" rel="stylesheet"  type="text/css"></link>

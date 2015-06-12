@@ -262,7 +262,7 @@ function save(){
 	       type:'post',
 	       dataType:'json',
 	       url:"kucun/AddStockInServlet",
-	       data:$('#myform1').serialize(),// 向后台提交整个servlet
+	       data:$('#myform1').serialize(),// 向后台提交整个表单
 	       async: false,
 	       error: function(request) {
 	           $.massager.confirm("信息提示","添加错误！");
@@ -276,9 +276,7 @@ function save(){
 	}else{
 		$.messager.confirm("信息提示","添加失败！表单不合法！");
 	}
-	
-
-	
+		
 }
 	</script>
   </head>

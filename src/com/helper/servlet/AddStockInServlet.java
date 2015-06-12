@@ -85,6 +85,7 @@ public class AddStockInServlet extends HttpServlet {
 		//stockIn.setAddUser(request.getParameter("addUser"));
 		//stockIn.setAddUserName(request.getParameter("addUserName"));
 		//stockIn.setAddIp(request.getParameter("addIp"));
+		
 		StockInService stockInService = new StockInServiceImpl();
 		int ret=stockInService.insertStockIn(stockIn);
 	}
