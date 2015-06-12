@@ -108,14 +108,14 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 //		int ret = super.executeUpdate(sql1);
 //		return ret;
 
-		String sql2 = "delete from SALORDER_DETAIL where code="+code;
+		//String sql2 = "delete from SALORDER_DETAIL where code="+code;
 		Connection conn = super.getConnection();
 		int ret[] = new int[2];
 		try {
 			Statement state = conn.createStatement();
 			conn.setAutoCommit(false);
 			state.addBatch(sql1);
-			state.addBatch(sql2);
+			//state.addBatch(sql2);
 			ret = state.executeBatch();
 			conn.commit();
 		} catch (SQLException e) {
