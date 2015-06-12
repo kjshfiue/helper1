@@ -23,6 +23,7 @@ public class SaleOrderServiceImpl implements SaleOrderService {
 	public int addSaleOrder(SaleOrder s) {
 		// TODO Auto-generated method stub
 		return saleOrderDao.addSaleOrder(s);
+		
 	}
 
 	@Override
