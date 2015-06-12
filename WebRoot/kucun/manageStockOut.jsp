@@ -13,6 +13,10 @@
 		a{
 			text-decoration:none;
 		}
+		
+		.red{
+			color:#E83A1E;
+		}
 	</style>
 	<script type="text/javascript">
 	$.fn.datebox.defaults.formatter = function(date){

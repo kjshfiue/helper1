@@ -105,7 +105,6 @@ public class GetBaseCashInqueryServlet extends HttpServlet {
              attrs.put("total",pageBean.getTotal());
              jsonObject.putAll(attrs,config);
              String data=jsonObject.toString();
-             System.out.println(data);
              response.getWriter().println(data);
 	
 	}

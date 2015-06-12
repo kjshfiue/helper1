@@ -67,7 +67,7 @@ public class ForDeleteMessage extends HttpServlet {
 		response.setContentType("text/html");
 		String list=request.getParameter("partscode");
 	
-		//System.out.println("code:"+list);
+		System.out.println("code:"+list);
 		
 		PartsServicesImpl psi=new PartsServicesImpl();
 		int flag=psi.deleteParts(list);

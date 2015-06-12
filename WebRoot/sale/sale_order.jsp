@@ -116,8 +116,8 @@
 					type:"post",
 					data:{'code':code},
 					success:function(data1){
-						$("#sale_order").datagrid("reload");
 						$.messager.alert("信息提示",data1.message,"info");
+						$("#sale_order").datagrid("reload");
 					},
 					error:function(data){
 						$.messager.alert("信息提示","删除请求失败","error");
@@ -149,7 +149,6 @@
 					dataType:"json",
 					data:{'data':del},
 					success:function(data){
-						$("#sale_order").datagrid("reload");
 						$.messager.alert("信息提示",data.message,"info");
 					},
 					error:function(data){
