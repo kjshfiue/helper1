@@ -1,6 +1,6 @@
 package com.helper.tools;
 
-import java.io.BufferedWriter; 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,10 +14,11 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class DocumentHandler {
-	private Configuration con=null;
+public class DocumentHandlerNext {
 	
-	public DocumentHandler(){
+private Configuration con=null;
+	
+	public DocumentHandlerNext(){
 		
 		con = new Configuration();
 		con.setDefaultEncoding("utf-8");
@@ -32,7 +33,7 @@ public class DocumentHandler {
 		
 		//Îª test.ftl×°ÔØÄ£°å
 		try {
-			t=con.getTemplate("zidian2.ftl");
+			t=con.getTemplate("kucun.ftl");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,9 +1,9 @@
 <%@page pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<jsp:include page="/common/base_path.jsp" ></jsp:include>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 <head>
- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
  <title>公司信息管理</title>
  <script type="text/javascript" src="lib/jquery-1.7.2.min.js"></script>
  <script type="text/javascript" src="lib/jquery.easyui.min.js"></script>
@@ -11,13 +11,10 @@
  <link  type="text/css" href="themes/icon.css" rel="stylesheet" />
  <style>
  
- 
- 
  td{
  	border-left:1px solid #C7D3E4;
 	border-top:1px solid #C7D3E4;
  }
- 
 #mytd{
 	width:80px;
 	padding-left:30px;
@@ -29,8 +26,8 @@
 </style>
 <script type="text/javascript">
 $(function(){
-//匿名函数///////
-	 $("#tt").datagrid({
+//匿名函数
+	 $("#tt").dialog({
 			title:'公司信息管理',
 			fit:true,
 			toolbar:"#news_tb",
@@ -103,18 +100,19 @@ function save(){
 	});
 	
 }
-function close(){
-	
-	$("#tt").window.close();
-	//response.Readirect("./FirstPage.jsp");
 
+function closeDialog(dialogId){
+	 $(dialogId).find("form").form("reset");
+     $(dialogId).dialog("close");
+}
+function close(){
+	closeDialog("#tt");
 }
 
 </script>
 </head>
  <body>
-  <div id="tt"> 
-  </div>
+  <div id="tt" ></div>
   <div id="news_tb">      
     <form method="post">
     <input id="hide" type="hidden" />
@@ -149,9 +147,9 @@ function close(){
 	  </tr>
 	 </table>
 	</form>
-	<input type="button" value="保存" onclick=save(); />
 	
-	<input type="button" value="关闭" onclick=close(); />
+	<a href="javascript:save();"><input type="button" value="保存"/></a>
+	<a href="javascript:close();"><input type="button" value="关闭"/></a>
    </div>    
  </body>
 </html>
