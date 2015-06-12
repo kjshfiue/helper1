@@ -22,7 +22,9 @@
 #mytd1{
 	width:245px;
 }
- 
+ .red{
+			color:#E83A1E;
+		}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -118,8 +120,8 @@ function close(){
     <input id="hide" type="hidden" />
 	 <table id="mytable" style="border:1px solid #C4D2E3;">
 	  <tr>
-	  	<td id="mytd">*公司代码：</td><td id="mytd1"><input id="1" type="text"></td>
-	  	<td id="mytd">*公司名称：</td><td id="mytd1"><input id="2" type="text"></td>
+	  	<td id="mytd"><span class="red">*</span>公司代码：</td><td id="mytd1"><input id="1" type="text"></td>
+	  	<td id="mytd"><span class="red">*</span>公司名称：</td><td id="mytd1"><input id="2" type="text"></td>
 	  </tr>
 	  <tr>
 	  	<td id="mytd">公司地址：</td><td id="mytd1"><input id="3" type="text"></td>
