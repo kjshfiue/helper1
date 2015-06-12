@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import com.helper.entity.BaseContent;
 import com.helper.service.BaseContentService;
 import com.helper.service.impl.BaseContentServiceImpl;
@@ -59,7 +61,14 @@ public class AddBaseContentServlet extends HttpServlet {
 		bc.setCompCode(request.getParameter("compCode"));
 		BaseContentService bcService = new BaseContentServiceImpl();
 		int ret = bcService.addBaseContent(bc);
-		response.getWriter().println("{'message':"+(ret==1?"添加成功":"添加失败")+"}");
+		JSONObject json = new JSONObject();
+		if(ret==1){
+			json.put("message", "字典添加成功！");
+		}else{
+			json.put("message", "字典添加失败！");
+		}
+		System.out.println("message: "+json.toString());
+		response.getWriter().println(json.toString());
 		
 	}
 

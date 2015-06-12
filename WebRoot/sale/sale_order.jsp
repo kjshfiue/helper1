@@ -107,7 +107,6 @@
 		$("#search_form").form("reset");
 	}
 	function del(code){
-	alert(code);
 		$.messager.confirm("确认","确认删除吗？",			
 		  function(r){
 			if(r){

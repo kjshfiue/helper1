@@ -109,15 +109,15 @@ function del(code1,code2){
 				data:{"categorycode":code1,"code":code2},
 				success:function(data){
 					if(data.ret==1){
-						$.messager.confirm("信息提示","删除成功!");
-						$("#baseContentList").datagrid("reload");
+						$.messager.alert("信息提示","删除成功!");
+						$("#baseContentList").datagrid("reload","info");
 						reloadCategory();	
 					}else{
-						$.messager.confirm("信息提示1","删除失败!");
+						$.messager.alert("信息提示1","删除失败!","error");
 					}
 				},
 				error:function(){
-					$.messager.confirm("信息提示2","删除失败!");
+					$.messager.alert("信息提示2","删除失败!","error");
 				}
 			});
 		 }
@@ -146,9 +146,9 @@ function delBatch(){
 					});
 				}
 				if(ret=="rows"){
-					$.messager.confirm("信息提示","删除成功!");
+					$.messager.alert("信息提示","删除成功!","info");
 				}else{
-					$.messager.confirm("信息提示","删除失败!失败行号"+ret);
+					$.messager.alert("信息提示","删除失败!失败行号"+ret,"error");
 				}
 				$("#baseContentList").datagrid("reload");
 				reloadCategory();	
@@ -182,16 +182,16 @@ function updateBase(){
        data:$('#myform').serialize(),// 你的formid
        async: false,
        error: function(request) {
-           $.messager.confirm("信息提示2","字典修改失败！");
+           $.messager.alert("信息提示2","字典修改失败！","error");
        },
        success: function(data) {
 	       if(data.ret=="1"){
-	       		$.messager.confirm("信息提示","字典修改成功！");
+	       		$.messager.alert("信息提示","字典修改成功！","info");
 	       		closeDialog("#add_Dialog");
            		reloadCategory();
 	       		$("#baseContentList").datagrid("reload");//重新加载数据
 	       }else{
-	       		$.messager.confirm("信息提示1","字典修改失败！");
+	       		$.messager.alert("信息提示1","字典修改失败！","error");
 	       }	           
        }
 	});
@@ -210,21 +210,22 @@ function save(){
 		$.ajax({
 	       cache: true,//读取缓存
 	       type: "POST",
+	       dataType:"json",
 	       url:"base/AddBaseContentServlet",
 	       data:$('#myform').serialize(),// 你的formid
 	       async: false,
 	       error: function(request) {
-	           $.massager.confirm("信息提示","字典添加错误！");
+	           $.messager.alert("信息提示","字典添加错误！","error");
 	       },
 	       success: function(data) {
 	           closeDialog("#add_Dialog");
 	           $("#baseContentList").datagrid("reload");
 	           reloadCategory();
-	           $.messager.confirm("信息提示","添加成功！");
+	           $.messager.alert("信息提示",data.message,"info");
 	       }
 	   });
 	}else{
-		$.messager.confirm("信息提示","添加失败！表单不合法！");
+		$.messager.alert("信息提示","添加失败！表单不合法！","error");
 	}
 	
    
@@ -252,7 +253,7 @@ function export1(){
 		type:"post",
 		data:obj,
 		success:function(data){
-		
+			$.messager.alert("信息提示","导出成功！","info");
 		}
 	});
 }

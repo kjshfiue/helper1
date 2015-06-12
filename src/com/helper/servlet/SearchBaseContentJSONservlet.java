@@ -77,7 +77,6 @@ public class SearchBaseContentJSONservlet extends HttpServlet {
 		JSONObject json = new JSONObject();
 		json.put("rows", pageBean.getData());
 		json.put("total", pageBean.getTotal());
-		System.out.println("***"+json);
 		response.getWriter().println(json.toString());
 	}
 

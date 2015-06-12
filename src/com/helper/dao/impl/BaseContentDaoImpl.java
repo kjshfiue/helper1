@@ -215,7 +215,6 @@ public class BaseContentDaoImpl extends BaseDao implements BaseContentDao {
 		ResultSet rs = super.executeQuery(sql, object);
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String,Object> baseMap = null;
-		System.out.println("导出数据，开始获取数据");
 		try {
 			while(rs.next()){
 				baseMap = new HashMap<String,Object>();
@@ -237,6 +236,30 @@ public class BaseContentDaoImpl extends BaseDao implements BaseContentDao {
 			e.printStackTrace();
 		} 
 
+		return list;
+	}
+
+	@Override
+	public List<BaseContent> findByCategoryCode(String categorycode) {
+		// TODO Auto-generated method stub
+		String sql = "select * from basecontent where categorycode=? order by code";
+		ResultSet rs = super.executeQuery(sql, categorycode);
+		BaseContent bc = null;
+		List<BaseContent> list = new ArrayList<BaseContent>();
+		try {
+			while(rs.next()){
+				bc = new BaseContent();
+				bc.setCode(rs.getString("code"));
+				bc.setCodeName(rs.getString("codename"));
+				bc.setCategorycode(rs.getString("categorycode"));
+				list.add(bc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			super.closeAll();
+		}
 		return list;
 	}
 

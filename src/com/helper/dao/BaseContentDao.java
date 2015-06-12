@@ -15,5 +15,6 @@ public interface BaseContentDao {
 	public PageBean findPageBean(int pageNo,int pageSize);
 	public PageBean searchPageBean(int pageNo,int pageSize,HashMap<String,String> map);
 	public List<String> findCategoryCodes();
+	public List<BaseContent> findByCategoryCode(String categorycode);
 	public List<Map<String,Object>> findAllBaseContent(HashMap<String,String> map);
 }

@@ -61,4 +61,10 @@ public class BaseContentServiceImpl implements BaseContentService {
 		return bcDao.findAllBaseContent(map);
 	}
 
+	@Override
+	public List<BaseContent> findByCategoryCode(String categorycode) {
+		// TODO Auto-generated method stub
+		return bcDao.findByCategoryCode(categorycode);
+	}
+
 }
