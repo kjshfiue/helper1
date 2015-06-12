@@ -163,7 +163,7 @@ $('#details').datagrid('load',{'codes':rowData.code});
 });
 
 $('#GongYin').datagrid({
-				url:'',
+				url:'/helper/base/GetBaseCashInqueryServlet',
 				iconCls: 'icon-save', //图标
                 pagination: true, //显示分页
                 pageNumber:1,
@@ -179,16 +179,22 @@ $('#GongYin').datagrid({
                 idField: 'code', //主键
                 toolbar:'#GongYintools',
 columns:[[
-		{field:'Id',title:'询价编号',width:50,checkbox:true},    
-        {field:'code',title:'询价日期',width:100},  
-         {field:'suppliercode',title:'供应商名',width:100},  
+		{field:'Id',title:'编号',width:50,checkbox:true},
+		{field:'code',title:'询价编号',width:50,},    
+        {field:'addDate',title:'询价日期',width:100},  
+         {field:'supplierCode',title:'供应商名',width:100},  
        
        
         {field:'nums',title:'数量',width:100},    
-        {field:'numsprice',title:'金额',width:100},    
-        {field:'contacter',title:'未选数量',width:100},
-        {field:'telphone',title:'未选金额',width:100}, 
-        {field:'telphone',title:'审核状态',width:100}   
+        {field:'numSprice',title:'金额',width:100},    
+        {field:'zw',title:'未选数量',width:100},
+        {field:'zz',title:'未选金额',width:100}, 
+        {field:'state',title:'审核状态',width:100},
+         {field:'opt',title:'操作',width:130,formatter:function(val,row,idx){	
+			var content="<input type='button' value='确定' onclick=\"TiJiaoXun("+row.code+")\"/>";
+			
+			return content;}
+		}   
      
        
     ]]
@@ -325,10 +331,20 @@ alert("删除失败");
 //选择询价单
 function selectXun(){
 $('#win1').window('open'); 
+$('#win1').window({
+width:900,
+}); 
 }
 //提交询价单
-function TiJiaoXun(){
-alert(1);
+function TiJiaoXun(Xcode){
+$.ajax({
+url:'',
+data:{"codes":Xcode},
+success:function(data){
+
+}
+})
+
 }
 //取消添加询价单
 function QuXiaoTiJiaoXun(){
@@ -433,10 +449,7 @@ alert(1);
        <div id="GongYin">
       <table id="GongYintools">
      <tr>
-     	<td><input type="button" id="XunJiaDan" value="确定" onclick="TiJiaoXun()"/>
-     	</td>
-     	<td><input type="button" id="XunJiaDan" value="取消" onclick="QuXiaoTiJiaoXun()"/>
-     	</td>
+     	<td></td>
      	</tr>
      </table>
 	</div>
