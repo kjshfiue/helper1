@@ -10,7 +10,7 @@ import com.helper.entity.NewCashInquery;
 
 public class NewCashInqueryDaoImpl extends BaseDao {
 	public List<NewCashInquery> findCashInquery(String code,int first,int second){
-		String sql="select * from purchaseorder_detail ord join purchaseinquery que on ord.xcode=que.code join baseparts bas on bas.partscode=ord.pcode where dcode="+code;
+		String sql="select * from purchaseorder_detail ord join purchaseinquery que on ord.xcode=que.code join baseparts bas on bas.partscode=ord.pcode where dcode="+"'"+code+"'";
 		List<NewCashInquery> list=new ArrayList<NewCashInquery>();
 		NewCashInquery nci=null;
 		
@@ -41,7 +41,7 @@ public class NewCashInqueryDaoImpl extends BaseDao {
 		
 	}
 	public String findNewsPrice(String code){
-		String sql="select bas.SALEPRICE from purchaseorder_detail ord join purchaseinquery que on ord.xcode=que.code join baseparts bas on bas.partscode=ord.pcode where dcode="+code;
+		String sql="select bas.SALEPRICE from purchaseorder_detail ord join purchaseinquery que on ord.xcode=que.code join baseparts bas on bas.partscode=ord.pcode where dcode="+"'"+code+"'";
 		ResultSet rs=super.executeQuery(sql);
 		String price=null;
 		try {

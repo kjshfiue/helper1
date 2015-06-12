@@ -72,7 +72,7 @@ for ( var i = 0;i < rows.length;i++){
 	var str=strs.join(',');
 	//alert(str);
 	$.ajax({
-	url:'/helper/DeleteAllOrdMessages.do',
+	url:'/helper/DeleteAllOrderMessages.do',
 	data:{"idx":str},
 	success:function(data){
 	if(data==1){
@@ -119,8 +119,8 @@ $("#box").datagrid(
         {field:'state',title:'审核状态',width:100},    
         {field:'addUserName',title:'操作员',width:100},
         {field:'opt',title:'操作',width:130,formatter:function(val,row,idx){	
-			var content="<input type='button' value='修改' onclick=\"updates("+row.code+")\"/>";
-			content+="<input type='button' value='删除' onclick=\"del("+row.code+")\"/>";
+			var content="<input type='button' value='修改' onclick=\"updates('"+row.code+"')\"/>";
+			content+="<input type='button' value='删除' onclick=\"del('"+row.code+"')\"/>";
 			return content;}
 		}
     ]],
@@ -191,7 +191,7 @@ columns:[[
         {field:'zz',title:'未选金额',width:100}, 
         {field:'state',title:'审核状态',width:100},
          {field:'opt',title:'操作',width:130,formatter:function(val,row,idx){	
-			var content="<input type='button' value='确定' onclick=\"TiJiaoXun("+row.code+")\"/>";
+			var content="<input type='button' value='确定' onclick=\"TiJiaoXun('"+row.code+"')\"/>";
 			
 			return content;}
 		}   
@@ -261,6 +261,7 @@ function submits(){
 }
 //打开修改界面
 function updates(code){
+alert(code);
 $("input[name='bh']").val(code);
 $('#win').window('open'); 
 

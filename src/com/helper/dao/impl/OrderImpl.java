@@ -119,8 +119,10 @@ obj[17]=ord.getAddIp();
 	}
 	//É¾³ý¶©µ¥
 	public int deleteMessage(String code){
-		String sql="delete from purchaseorder where code="+code;
-		int flag=super.executeUpdate(sql);
+		Object obj[]=new Object[1];
+		obj[0]=code;
+		String sql="delete from purchaseorder where code= ?";
+		int flag=super.executeUpdate(sql,obj);
 		return flag;
 
 	
