@@ -1,6 +1,7 @@
 package com.helper.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,13 +15,15 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
 import com.helper.entity.PageBean;
-import com.helper.service.SaleOrderService;
-import com.helper.service.impl.SaleOrderServiceImpl;
+import com.helper.service.StockInService;
+import com.helper.service.StockOutService;
+import com.helper.service.impl.StockInServiceImpl;
+import com.helper.service.impl.StockOutServiceImpl;
 import com.helper.tools.DateUtil;
 import com.helper.util.JSONDateProcessor;
 
-public class GetSaleOrderJSONServlet extends HttpServlet {
-	private SaleOrderService saleOrderService = new SaleOrderServiceImpl();
+public class DisplayStockOutServlet extends HttpServlet {
+
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -47,48 +50,55 @@ public class GetSaleOrderJSONServlet extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
+	private StockOutService stockOutService = new StockOutServiceImpl();
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		response.setContentType("text/json; charset=utf-8");
+
+		response.setContentType("text/json;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		String code = request.getParameter("code");
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");	
-		String customerCode = request.getParameter("customerCode");
-		String pageNo = request.getParameter("page");
-		String pageSize = request.getParameter("rows");
+		
+		String pageNo=request.getParameter("page");
+		String pageSize=request.getParameter("rows");
 		if(pageNo==null||pageNo==""){
-			pageNo = "1";
+			pageNo="1";
 		}
 		if(pageSize==null||pageSize==""){
-			pageSize = "10";
+			pageSize="5";
 		}
-		if(startDate!=null&&startDate!=""){
-			startDate = DateUtil.toSqlDateString(startDate);
-		}
-		if(endDate!=null&&endDate!=""){
-			endDate = DateUtil.toSqlDateString(endDate);
-		}
+		//System.out.println("Ъ§Он"+pageNo+"--"+pageSize);
+		String code = request.getParameter("code");
+		String date1 = request.getParameter("date1");
+		String date2 = request.getParameter("date2");
+		String name = request.getParameter("name");
 		
-		Map<String,String> map = new HashMap<String,String>();
+		HashMap<String, String> map = new HashMap<String, String>();
+		if(code==null||code==""){
+			code = "";
+		}
+		if(date1!=null&&date1!=""){
+			date1 = DateUtil.toSqlDateString(date1);
+		}
+		if(date2!=null&&date2!=""){
+			date2 = DateUtil.toSqlDateString(date2);
+		}
 		map.put("code", code);
-		map.put("startDate", startDate);
-		map.put("endDate", endDate);
-		map.put("customerCode", customerCode);
-		PageBean pageBean = saleOrderService.findSaleOrder(Integer.parseInt(pageNo),Integer.parseInt(pageSize),map);
-
-		Map<String,Object> map22 = new HashMap<String,Object>();
-		map22.put("rows", pageBean.getData());
-		map22.put("total", pageBean.getTotal());
+		System.out.println("ЙўЙў"+date1);
+		map.put("date1", date1);
+		map.put("date2", date2);
+		map.put("name", name);
+		PageBean pageBean = stockOutService.searchPageBean
+				(Integer.parseInt(pageNo), Integer.parseInt(pageSize), map);
 		
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class, new JSONDateProcessor("yyyy-MM-dd"));
-		////
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.putAll( map22, jsonConfig);
-		response.getWriter().println(jsonObject.toString());
+
+		Map attrs=new HashMap();
+        JSONObject jsonObject=new JSONObject();
+        attrs.put("rows",pageBean.getData());
+        attrs.put("total",pageBean.getTotal());
+        
+        jsonObject.putAll(attrs,jsonConfig);
+        response.getWriter().println(jsonObject.toString());
 		
 	}
 

@@ -1,8 +1,11 @@
 package com.helper.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -10,20 +13,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
-import com.helper.entity.PageBean;
 import com.helper.service.StockInService;
 import com.helper.service.impl.StockInServiceImpl;
 import com.helper.tools.DateUtil;
+import com.helper.tools.JxlExcelUtils;
 import com.helper.util.JSONDateProcessor;
 
+public class ExportStockInExcelServlet extends HttpServlet {
 
-
-public class DisplayStockInServlet extends HttpServlet {
-	
-	
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -34,12 +35,10 @@ public class DisplayStockInServlet extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
-	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		this.doPost(request, response);
-		
 	}
 
 	/**
@@ -56,53 +55,51 @@ public class DisplayStockInServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-  	 	
 		response.setContentType("text/json; charset=utf-8");
-		String pageNo=request.getParameter("page");
-		String pageSize=request.getParameter("rows");
-		if(pageNo==null||pageNo==""){
-			pageNo="1";
-		}
-		if(pageSize==null||pageSize==""){
-			pageSize="5";
-		}
-		//System.out.println("数据"+pageNo+"--"+pageSize);
+		request.setCharacterEncoding("utf-8");
+		
 		String code = request.getParameter("code");
-		String date1 = request.getParameter("date1");
+		String date1= request.getParameter("date1");
 		String date2 = request.getParameter("date2");
 		String name = request.getParameter("name");
-		
 		HashMap<String, String> map = new HashMap<String, String>();
 		if(code==null||code==""){
 			code = "";
 		}
 		if(date1!=null&&date1!=""){
-			date1 = DateUtil.toSqlDateString(date1);
+			date1 =DateUtil.toSqlDateString(date1);
 		}
 		if(date2!=null&&date2!=""){
-			date2 = DateUtil.toSqlDateString(date2);
+			date2 =DateUtil.toSqlDateString(date2);
 		}
+		if(name==null||name==""){
+			name = "";
+		}
+		
 		map.put("code", code);
-		//System.out.println("哈哈"+date1);
+		System.out.println("入库时间"+date1);
 		map.put("date1", date1);
-		System.out.println("哈哈*"+date2);
 		map.put("date2", date2);
 		map.put("name", name);
-		PageBean pageBean = stockInService.searchPageBean
-				(Integer.parseInt(pageNo), Integer.parseInt(pageSize), map);
+		List<Map<String,Object>> listData = stockInService.findAllStock(map);
+		List<String> columns = new ArrayList<String>();
+		columns.add("入库单号");
+		columns.add("入库日期");
+		columns.add("供应商名");
+		columns.add("数量");
+		columns.add("总货值");
+		columns.add("审核状态");
+		columns.add("操作员");
+	    JsonConfig  config=new JsonConfig();
+		config.setExcludes(new String[]{"contacter","teltphone","fax","intype","isroad","isinvoice",
+				"remarks","isshow","compcode","adddate","adduser","addip"});//设置把哪些实体属性排除
 		
-		JsonConfig jsonConfig = new JsonConfig();
-		jsonConfig.registerJsonValueProcessor(Date.class, new JSONDateProcessor("yyyy-MM-dd"));
-
-		Map attrs=new HashMap();
-        JSONObject jsonObject=new JSONObject();
-        attrs.put("rows",pageBean.getData());
-        attrs.put("total",pageBean.getTotal());
-        
-        jsonObject.putAll(attrs,jsonConfig);
-        response.getWriter().println(jsonObject.toString());
+		JSONArray lineitemArray = JSONArray.fromObject( listData ,config);
+		List result = JSONArray.fromObject(lineitemArray);
 		
+		JxlExcelUtils.exportexcle(response, "shuju", result, "sheetName", columns);  
 		
 	}
+	
 
 }

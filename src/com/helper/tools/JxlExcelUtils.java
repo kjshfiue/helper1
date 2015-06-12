@@ -56,12 +56,11 @@ public class JxlExcelUtils {
               
             WritableFont font1 =new WritableFont(WritableFont.createFont("微软雅黑"), 10 ,WritableFont.BOLD);  
             WritableFont font2 =new WritableFont(WritableFont.createFont("微软雅黑"), 9 ,WritableFont.NO_BOLD);  
+            //创建单元格样式  
+           //WritableCellFormat wcf = new WritableCellFormat();
             WritableCellFormat wcf = new WritableCellFormat(font1);  
             WritableCellFormat wcf2 = new WritableCellFormat(font2);  
             WritableCellFormat wcf3 = new WritableCellFormat(font2);//设置样式，字体  
-  
-            //创建单元格样式  
-            //WritableCellFormat wcf = new WritableCellFormat();  
   
             //背景颜色  
             wcf.setBackground(jxl.format.Colour.YELLOW);  

@@ -1,6 +1,8 @@
 package com.helper.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,11 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
-import com.helper.service.SaleOrderService;
-import com.helper.service.impl.SaleOrderServiceImpl;
+import com.helper.entity.SaleOrderDetail;
+import com.helper.entity.StockIn;
+import com.helper.entity.StockInDetail;
+import com.helper.service.StockInDetailService;
+import com.helper.service.StockInService;
+import com.helper.service.impl.StockInDetailServiceImpl;
+import com.helper.service.impl.StockInServiceImpl;
 
-public class DelSaleOrderServlet extends HttpServlet {
-	private SaleOrderService saleOrderService = new SaleOrderServiceImpl();
+public class DescriptionStockInServlet extends HttpServlet {
+
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -40,21 +47,20 @@ public class DelSaleOrderServlet extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
+	private StockInDetailService skInDS=new StockInDetailServiceImpl();
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/json; charset=utf-8");
+		response.setContentType("text/json;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
-		String code = request.getParameter("code");
-		int ret = saleOrderService.deleteByCode(code);
-		JSONObject json = new JSONObject();
-		if(ret==1){
-			json.put("message", "É¾³ý³É¹¦£¡");
-		}else{
-			json.put("message", "É¾³ýÊ§°Ü£¡");
+		String inCode=request.getParameter("inCode");
+		List<StockInDetail> list = null;
+		if(inCode!=null&&inCode!=""){
+			list = skInDS.findDatailByInCode(inCode);
 		}
+		JSONObject json = new JSONObject();
+		json.put("rows", list);
 		response.getWriter().println(json.toString());
-		
 	}
 
 }

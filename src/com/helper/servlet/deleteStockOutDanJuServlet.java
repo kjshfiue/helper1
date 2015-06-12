@@ -1,6 +1,7 @@
 package com.helper.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,11 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
-import com.helper.service.SaleOrderService;
-import com.helper.service.impl.SaleOrderServiceImpl;
+import com.helper.service.StockInService;
+import com.helper.service.StockOutService;
+import com.helper.service.impl.StockInServiceImpl;
+import com.helper.service.impl.StockOutServiceImpl;
 
-public class DelSaleOrderServlet extends HttpServlet {
-	private SaleOrderService saleOrderService = new SaleOrderServiceImpl();
+public class deleteStockOutDanJuServlet extends HttpServlet {
+
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -40,21 +43,16 @@ public class DelSaleOrderServlet extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
+	private StockOutService stockOutService = new StockOutServiceImpl(); 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/json; charset=utf-8");
-		request.setCharacterEncoding("utf-8");
-		String code = request.getParameter("code");
-		int ret = saleOrderService.deleteByCode(code);
-		JSONObject json = new JSONObject();
-		if(ret==1){
-			json.put("message", "É¾³ý³É¹¦£¡");
-		}else{
-			json.put("message", "É¾³ýÊ§°Ü£¡");
-		}
-		response.getWriter().println(json.toString());
-		
+		response.setContentType("text/json;charset=utf-8");
+		String code=request.getParameter("code");
+		int ret=stockOutService.deleteStockOut(code);
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("ret", ret);
+		response.getWriter().println(jsonObject.toString());
 	}
 
 }

@@ -27,6 +27,9 @@
 	#order span{
 		color:red;
 	}
+	#myTable input{
+		width:150px;
+	}
 	table{
 		border:solid #EAF2FE 1px;
 		border-width:1px;
@@ -44,22 +47,36 @@
   	}
 	</style>
 	<script type="text/javascript">
-	/* $.fn.datebox.defaults.formatter = function(date){
+	$.fn.datebox.defaults.formatter = function(date){
 		var y = date.getFullYear();
 		var m = date.getMonth()+1;
 		var d = date.getDate();
 		return y+'-'+m+'-'+d;
-	} */
+	}
+	function to2(n){
+		if(n<10){
+			n = "0"+n;
+		}
+		return n;
+	}
+	function to3(n){
+		if(n<10){
+			n = "00"+n;
+		}else if(n<100){
+			n = "0"+n;
+		}
+		return n;
+	}
 	function getCode(){
 		var time = new Date();
 		var year = time.getFullYear();
-		var month = time.getMonth();
-		var day = time.getDate();
-		var hour = time.getHours();
-		var minute = time.getMinutes();
-		var seconds = time.getSeconds();
-		var milliseconds = time.getMilliseconds();
-		var codeStr = "MTXS"+year+month+day+hour+minute+seconds+milliseconds;
+		var month = to2(time.getMonth()+1);
+		var day = to2(time.getDate());
+		var hour = to2(time.getHours());
+		var minute = to2(time.getMinutes());
+		var seconds = to2(time.getSeconds());
+		var milliseconds = to3(time.getMilliseconds());
+		var codeStr = "MTXS"+year+month+day+hour+minute+milliseconds;
 		//$("input[name='code']").val(codeStr);
 		return codeStr;
 	}
@@ -111,22 +128,12 @@
 		$("input[name='orderDate']").datebox({
 			 required:true,
 			 missingMessage:"订单日期不能为空",
-			 formatter:function(date){
-			 	var y = date.getFullYear();
-				var m = date.getMonth()+1;
-				var d = date.getDate();
-				return y+'-'+m+'-'+d;
-			 }
+			 width:150
 		});
 		$("input[name='deliveryDate']").datebox({
 			 required:true,
 			 missingMessage:"交货日期不能为空",
-			 formatter:function(date){
-			 	var y = date.getFullYear();
-				var m = date.getMonth()+1;
-				var d = date.getDate();
-				return y+'-'+m+'-'+d;
-			 }
+			 width:150
 		});
 		
 		
@@ -193,10 +200,10 @@
 				dataType:"json",
 				data:$("#orderForm").serialize(),
 				success:function(data){
-					$.messager.alert("信息提示",data.message);
+					$.messager.alert("信息提示",data.message,"info");
 				},
 				error:function(data){
-					$.messager.alert("信息提示","添加请求失败！");
+					$.messager.alert("信息提示","添加请求失败！","error");
 				}
 			});
 			//parent.closeTabs("销售订单");
@@ -218,7 +225,7 @@
   <body>
     <div id="order">
 	    <form id="orderForm">
-	    <table>
+	    <table id="myTable" >
 	    <tr>
 	    	<td class="text"><span>*</span>订单编号：</td>
 	    	<td class="input"><input type="text" name="code" /></td>
