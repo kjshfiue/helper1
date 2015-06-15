@@ -2,10 +2,7 @@ package com.helper.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,15 +13,14 @@ import net.sf.json.JSONObject;
 
 import com.helper.dao.CashInqueryDao;
 import com.helper.dao.impl.CashInqueryDaoImpl;
-import com.helper.entity.DBCashInquery;
 import com.helper.entity.PageBean;
 
-public class GetBasePartServlet extends HttpServlet {
+public class GetPrividerNameServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetBasePartServlet() {
+	public GetPrividerNameServlet() {
 		super();
 	}
 
@@ -49,6 +45,7 @@ public class GetBasePartServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
             this.doPost(request, response);
+			
 	}
 
 	/**
@@ -63,37 +60,38 @@ public class GetBasePartServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-              request.setCharacterEncoding("utf-8");
-              response.setContentType("text/json;charset=utf-8");
-              String code=request.getParameter("code");
-              PageBean pageBean=null;
-              String pageNo=request.getParameter("page");
-  		      String pageSize=request.getParameter("rows");
-  		      if(pageNo==null||pageNo.equals("")){
-  		    	pageNo="1";
-  		       }
-  		       if(pageSize==null||pageSize.equals("")){
-  		    	pageSize="10";
-  		       }
-              /* String code=null;
+            response.setContentType("text/json;charset=utf-8");
+            request.setCharacterEncoding("utf-8");
+            CashInqueryDao ciDao=new CashInqueryDaoImpl();
+            String pageNo=request.getParameter("page");
+		    String pageSize=request.getParameter("rows");
+		    if(pageNo==null||pageNo.equals("")){
+		    	pageNo="1";
+		    }
+		    if(pageSize==null||pageSize.equals("")){
+		    	pageSize="10";
+		    }
+		    String code=request.getParameter("prividerCode");
+		    System.out.println(code);
+		    if(code==null||code==""){
+		    	code=null;
+		    }
+		    String name=request.getParameter("prividerName");
+		    System.out.println(name);
+		    if(name==null||name==""){
+		    	name=null;
+		    }
+		    HashMap <String ,String> map=new HashMap<String ,String>();
+		    map.put("SALERCODE", code);
+		    map.put("SALERNAME", name);
+		    PageBean pageBean=ciDao.getPrividerName(Integer.parseInt(pageNo), Integer.parseInt(pageSize), map);
+		    JSONObject jsonObject=new JSONObject();
+		    jsonObject.put("rows",pageBean.getData());
+            jsonObject.put("total",pageBean.getTotal());
+            String data=jsonObject.toString();
+            System.out.println(data);
+            response.getWriter().println(data);
             
-              if(code1==null||code1==""){
-  		    	   code="'null'";
-  		    	
-  		       }else{
-  		           code="'"+code1+"'";
-  		        }*/
-              CashInqueryDao ciDao=new CashInqueryDaoImpl();
-              List <DBCashInquery> list=new ArrayList <DBCashInquery>();
-              pageBean= ciDao.getBasePart(Integer.parseInt(pageNo), Integer.parseInt(pageSize), code);
-              System.out.println(pageBean.getTotal());
-              JSONObject jsonObject=new JSONObject();
-              jsonObject.put("rows",pageBean.getData());
-              jsonObject.put("total",pageBean.getTotal());
-              String data=jsonObject.toString();
-              System.out.println(data);
-              response.getWriter().println(data);
-		
 	}
 
 	/**

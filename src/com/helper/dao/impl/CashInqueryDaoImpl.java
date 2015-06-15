@@ -32,8 +32,10 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import com.helper.entity.DBCashInquery;
 import com.helper.entity.PageBean;
 import com.helper.entity.Parts;
+import com.helper.entity.PrividerName;
 import com.helper.dao.BaseDao;
 import com.helper.dao.CashInqueryDao;
 import com.helper.entity.CashInquery;
@@ -365,40 +367,117 @@ public class CashInqueryDaoImpl extends BaseDao implements CashInqueryDao{
 		return list;
 	}
 	
-	//===================================测试================================
-		public static void main(String[] args) {
-			//PageBean pageBean=null;
-			CashInqueryDao ciDao=new CashInqueryDaoImpl();
-			//CashInquery cashInquery=new CashInquery();
-		   /* cashInquery.setComPCode("1234");
-		    cashInquery.setNums("0012");
-		    cashInquery.setNumSprice("0000");
-		    cashInquery.setContacter("王五");
-		    cashInquery.setTelphone("12345678");
-		    cashInquery.setState("0");
-		    cashInquery.setRemarks("你大爷1234");
-		    cashInquery.setCode("2002");*/
-			List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
-		     HashMap <String ,String> map=new HashMap<String ,String>();
-			    map.put("code", "'2001'");
-			    map.put("endDate", "'01-6月-15'");
-			    map.put("startDate", "'19-6月-15'");
-			    map.put("comPCode","'01'");
-			 list=ciDao.findAllBCashInquery(map);
-		     System.out.println(list.get(0).get("code"));
-			
-		  
-		}
+	
 
 		@Override
 		 //获得BasePart表中基本数据
-		public List<Parts> getBasePart(String code) {
+		public PageBean getBasePart(int pageNo,int pageSize,String code) {
 			// TODO Auto-generated method stub
-			String sql="";
+			PageBean pageBean=new PageBean();
+			List<Object> pstm=new ArrayList<Object>();
+			List<DBCashInquery> list=new ArrayList<DBCashInquery>();
+			DBCashInquery dbCashInquery=null;
+			ResultSet rs= null;
+			String sql="select PURCHASEINQUERY_DETAIL.pcode,PURCHASEINQUERY_DETAIL.nums,"
+					+ "PURCHASEINQUERY_DETAIL.price,PURCHASEINQUERY_DETAIL.remarks,"
+					+ "BASEPARTS.partsname,BASEPARTS.partsbrand,BASEPARTS.PARTSMODEL "
+					+ "from  BASEPARTS full join PURCHASEINQUERY_DETAIL on "
+					+ "BASEPARTS.PARTSCODE=PURCHASEINQUERY_DETAIL.DCODE where "
+					+ "BASEPARTS.PARTSCODE = (select pcode from PURCHASEINQUERY_DETAIL where DCODE = ?)";
+			   pstm.add(code);
+			  Object[] object1=pstm.toArray();
+			  pstm.add(pageNo*pageSize);
+			  pstm.add((pageNo-1)*pageSize);
+			  Object[] object2=pstm.toArray();
+			rs=super.executeQueryForPage(sql, object2);
+			try {
+				while (rs.next()){
+					dbCashInquery=new DBCashInquery();
+					dbCashInquery.setPcode(rs.getString("pcode"));
+					dbCashInquery.setNums(rs.getString("nums"));
+					dbCashInquery.setPrice(rs.getString("price"));
+					dbCashInquery.setRemarks(rs.getString("remarks"));
+					dbCashInquery.setPartsName(rs.getString("partsname"));
+					dbCashInquery.setPartsBrand(rs.getString("partsbrand"));
+					dbCashInquery.setPartsmodel(rs.getString("partsmodel"));
+					list.add(dbCashInquery);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
+			if(list!=null){
+				   String sql2 ="select count (*) count from ("+sql+")";
+				   int total=super.executeTotalCount(sql2, object1);
+				   pageBean=new PageBean();
+				   pageBean.setTotal(total);
+				   pageBean.setData(list);
+			   }
 			
-			return null;
+			return pageBean;
 		}
+		@Override
+	     //获得供应商名称
+		public PageBean getPrividerName(int pageNo,int pageSize,HashMap<String, String> map) {
+			// TODO Auto-generated method stub
+			PageBean pageBean=null;
+			List<PrividerName> list_1=new ArrayList<PrividerName>();
+			PrividerName prividerName=null;
+			//HashMap<String,String>map_1=new HashMap<String,String>();
+			List<Object> pstm=new ArrayList<Object>();
+			ResultSet rs=null;
+			String sql="select * from CONTRACT  where 1=1";
+			if(map.get("SALERCODE")!=null){
+				sql+=" and SALERCODE="+map.get("SALERCODE");
+			}
+			if(map.get("SALERNAME")!=null){
+				sql+=" and  SALERNAME ="+map.get("SALERNAME");
+			}
+			  Object[] object1=pstm.toArray();
+			  pstm.add(pageNo*pageSize);
+			  pstm.add((pageNo-1)*pageSize);
+			  Object[] object2=pstm.toArray();
+			   rs=super.executeQueryForPage(sql, object2);
+			   try {
+				while(rs.next()){
+					prividerName=new PrividerName();
+					prividerName.setSalerCode(rs.getString("SALERCODE"));
+					prividerName.setSaerName(rs.getString("SALERNAME"));
+					prividerName.setSalerLegaler(rs.getString("SALERLEGALER"));
+					prividerName.setSalerTelphone(rs.getString("SALERTELPHONE"));
+					prividerName.setSalerFax(rs.getString("SALERFAX"));
+					prividerName.setSalerAddress(rs.getString("SALERADDRESS")); 
+					list_1.add(prividerName);
+				   }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			   if(list_1!=null){
+				   String sql2 ="select count (*) count from ("+sql+")";
+				   int total=super.executeTotalCount(sql2, object1);
+				   pageBean=new PageBean();
+				   pageBean.setTotal(total);
+				   pageBean.setData(list_1);
+			   }
+			   
+			return pageBean;
+		
+		}
+		
+		//===================================测试================================
+				public static void main(String[] args) {
+					PageBean pageBean=null;
+					CashInqueryDao ciDao=new CashInqueryDaoImpl();
+					HashMap<String,String>map=new HashMap<String,String>();
+					map.put("SALERCODE", null);
+					map.put("SALERNAME", null);
+				   pageBean= ciDao.getPrividerName(1,10,map);
+				   System.out.println(pageBean.getTotal());
+				    
+				}
 
+			
 		
 }

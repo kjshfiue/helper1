@@ -7,6 +7,7 @@ import java.util.Map;
 import jxl.write.WriteException;
 
 import com.helper.entity.CashInquery;
+import com.helper.entity.DBCashInquery;
 import com.helper.entity.PageBean;
 import com.helper.entity.Parts;
 
@@ -28,7 +29,8 @@ public interface CashInqueryDao {
 	//将搜索到符合条件的数据全部导出为excel
      List<Map<String,Object>> findAllBCashInquery(HashMap<String, String> map);
      //获得BasePart表中基本数据
-     List<Parts> getBasePart(String code);
-
-	
+     PageBean getBasePart(int pageNo,int pageSize,String code);
+     //获得供应商名称
+     PageBean getPrividerName(int pageNo,int pageSize,HashMap<String, String> map);
+	//
 }

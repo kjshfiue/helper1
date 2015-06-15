@@ -50,6 +50,7 @@ public class DeleteCashInqueryServlet extends HttpServlet {
             int ret=cashInquery.delCashInqueryList(code);
             JSONObject jsonObject=new JSONObject();
             jsonObject.put("ret", ret);
+           System.out.println(jsonObject.get("ret")) ;
             response.getWriter().println(jsonObject.toString());
 	 
 	}
