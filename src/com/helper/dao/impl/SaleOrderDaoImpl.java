@@ -15,9 +15,7 @@ import com.helper.entity.Parts;
 import com.helper.entity.SaleOrder;
 import com.helper.entity.SaleOrderDetail;
 import com.helper.tools.DateUtil;
-
-
-
+import com.helper.entity.PageBean;
 
 public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 

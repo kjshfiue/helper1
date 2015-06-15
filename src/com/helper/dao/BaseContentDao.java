@@ -1,5 +1,4 @@
 package com.helper.dao;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +8,7 @@ import com.helper.entity.PageBean;
 
 public interface BaseContentDao {
 	public int addBaseContent(BaseContent b);
+	
 	public int deleteByCode(String categorycode,String code);
 	public int deleteBatchByCode(List<HashMap<String,String>> list);
 	public int updateByCode(String up_categorycode,String up_code,BaseContent b);

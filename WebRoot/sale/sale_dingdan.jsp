@@ -17,12 +17,12 @@
 	<style type="text/css">
 	#order{
 		width:900px;
-		margin:0px auto;
+		margin:0px;
 	}
 	#box{
-		height: 300px;
+		height: 400px;
 		width:900px;
-		margin:0px auto;
+		margin:0px;
 	}
 	#order span{
 		color:red;
@@ -217,6 +217,9 @@
 		$("#p_dialog").dialog('open').dialog('refresh');
 		$("#p_datagrid").datagrid("reload");
 	}
+	function selectBaojia(){
+		 window.location.href="sale/sale_baojia.jsp";
+	}
 	
 	</script>
 
@@ -260,7 +263,7 @@
 	    <input type="hidden" name="addUserName" value="管理员" />
 	    <br />
 	    <input type="button" onClick="newOrder()" value="新 增" />
-	    <input type="button" onClick="" value="选报价单" />
+	    <input type="button" onClick="selectBaojia();" value="选报价单" />
 	    <input type="button" onClick="opendialog()" value="添加配件" />
 	    <input type="button" onClick="save();" value="保 存" />
 	    <input type="button" onClick="" value="审 核" />
