@@ -180,6 +180,11 @@
     <servlet-name>DelBatchSaleOrderServlet</servlet-name>
     <servlet-class>com.helper.servlet.DelBatchSaleOrderServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>DownloadServlet</servlet-name>
+    <servlet-class>com.helper.servlet.DownloadServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -355,6 +360,10 @@
   <servlet-mapping>
     <servlet-name>DelBatchSaleOrderServlet</servlet-name>
     <url-pattern>/sale/DelBatchSaleOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DownloadServlet</servlet-name>
+    <url-pattern>/servlet/DownloadServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
