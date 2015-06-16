@@ -2,6 +2,7 @@ package com.helper.entity;
 
 import java.util.Date;
 
+
 public class Company {
 private String cid;
 private String cName;

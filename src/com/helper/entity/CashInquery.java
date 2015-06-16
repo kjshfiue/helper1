@@ -2,6 +2,7 @@ package com.helper.entity;
 
 import java.util.Date;
 
+
 public class CashInquery {
 	    String code;//报价单编号
 	    Date addDate;//报价日期

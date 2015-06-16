@@ -1,6 +1,7 @@
 package com.helper.entity;
 
 public class DBCashInquery {
+	
 	private String pcode;
 	private String nums;
 	private String price;

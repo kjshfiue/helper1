@@ -2,6 +2,7 @@ package com.helper.entity;
 
 import java.util.Date;
 
+
 public class BaseContent {
 	private String code;//×Öµä±àºÅ
 	private String codeName;//×ÖµäÃû³Æ

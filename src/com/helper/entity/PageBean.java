@@ -3,6 +3,7 @@ package com.helper.entity;
 import java.util.List;
 
 public class PageBean {
+	
 	private List Data;
 	private int pageSize;
 	private int pageNo;

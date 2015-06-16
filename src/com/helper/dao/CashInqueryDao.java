@@ -12,7 +12,7 @@ import com.helper.entity.PageBean;
 import com.helper.entity.Parts;
 
 public interface CashInqueryDao {
-	//	按指定条件搜索询价单据信息；
+	//	按指定条件搜索询价单据信息；///
 	PageBean  searchPartBySth(int pageNo,int pageSize,HashMap<String, String> map);
     //增加、修改、删除询价单据；
 	int addCashInqueryList(CashInquery cashInquery);

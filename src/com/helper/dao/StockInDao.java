@@ -10,7 +10,6 @@ import com.helper.entity.StockIn;
 
 public interface StockInDao {
 	
-	
 	public int insert(StockIn stockIn);
 	public int delete (String code);
 	public StockIn findAll();

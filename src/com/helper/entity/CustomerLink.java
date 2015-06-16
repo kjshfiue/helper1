@@ -2,6 +2,7 @@ package com.helper.entity;
 
 import java.util.Date;
 
+
 public class CustomerLink {
 	   private String code;
 	   private String categoryCode; //ËùÊôÀà±ğ    

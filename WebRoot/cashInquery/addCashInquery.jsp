@@ -46,7 +46,7 @@ $(function(){
 		alert("测试");
 		
 		}
-	});
+	});//
 
 $("#tt").datagrid({
 		title:'公司信息管理',
