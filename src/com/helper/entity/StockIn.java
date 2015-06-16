@@ -7,6 +7,7 @@ import java.util.Date;
  * @author:王开泰
  */
 public class StockIn {
+	
 	private String code;
 	private Date inDate;
 	private String supplierCode;//供应商编号

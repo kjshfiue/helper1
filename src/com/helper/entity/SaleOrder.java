@@ -3,6 +3,7 @@ package com.helper.entity;
 import java.util.Date;
 
 public class SaleOrder {
+	
 	private String code;//销售单编号
 	private Date orderDate;//订单日期
 	private String customerCode;//客户编号

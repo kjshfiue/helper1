@@ -11,6 +11,7 @@ import com.helper.entity.SaleOrder;
 import com.helper.entity.SaleOrderDetail;
 import com.helper.service.SaleOrderService;
 
+
 public class SaleOrderServiceImpl implements SaleOrderService {
 	private SaleOrderDao saleOrderDao = new SaleOrderDaoImpl();
 

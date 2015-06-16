@@ -8,6 +8,7 @@ import com.helper.entity.SaleOrder;
 import com.helper.entity.SaleOrderDetail;
 
 public interface SaleOrderDao {
+	
 	public PageBean findSaleOrder(int pageNo,int pageSize,Map<String,String> map);
 	public List<SaleOrderDetail> findDatailByCode(String code);
 	public int addSaleOrder(SaleOrder s);

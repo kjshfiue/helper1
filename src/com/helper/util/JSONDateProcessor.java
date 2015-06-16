@@ -9,6 +9,7 @@ import net.sf.json.processors.JsonValueProcessor;
 
 public class JSONDateProcessor implements JsonValueProcessor {
 
+	
 	private String format = null;
 	public JSONDateProcessor(){
 		this.format = "yyyy-MM-dd HH:mm:ss";

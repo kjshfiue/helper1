@@ -1,6 +1,7 @@
 package com.helper.entity;
 
 public class Parts {
+	
 	private String partsCode;
 	private String partsName;
 	private String spell;

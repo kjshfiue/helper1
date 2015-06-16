@@ -1,6 +1,7 @@
 package com.helper.entity;
 
 public class SaleOrderDetail {
+	
 	private String code;//明细单号
 	private String scode;//销售单编号
 	private String sqcode;//报价单编号
