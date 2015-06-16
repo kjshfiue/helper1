@@ -1,12 +1,13 @@
 package com.helper.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import com.helper.service.SaleOrderService;
 import com.helper.service.impl.SaleOrderServiceImpl;
@@ -46,13 +47,13 @@ public class DelSaleOrderServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String code = request.getParameter("code");
 		int ret = saleOrderService.deleteByCode(code);
-		String message = null;
+		JSONObject json = new JSONObject();
 		if(ret==1){
-			message = "É¾³ý³É¹¦£¡";
+			json.put("message", "É¾³ý³É¹¦£¡");
 		}else{
-			message = "É¾³ýÊ§°Ü£¡";
+			json.put("message", "É¾³ýÊ§°Ü£¡");
 		}
-		response.getWriter().println("{\"message\":"+message+"}");
+		response.getWriter().println(json.toString());
 		
 	}
 

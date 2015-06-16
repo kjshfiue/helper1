@@ -11,7 +11,7 @@ public class StockOut {
 	private Date outDate;
 	private String customerCode;//客户编号
 	private String contActer;//客户联系人
-	private String teltphone;
+	private String telphone;
 	private String fax;
 	private String outType;
 	private String isInVoice;//是否开票
@@ -51,11 +51,12 @@ public class StockOut {
 	public void setContActer(String contActer) {
 		this.contActer = contActer;
 	}
-	public String getTeltphone() {
-		return teltphone;
+	public String getTelphone() {
+
+		return telphone;
 	}
-	public void setTeltphone(String teltphone) {
-		this.teltphone = teltphone;
+	public void setTelphone(String telphone) {
+		this.telphone = telphone;
 	}
 	public String getFax() {
 		return fax;
@@ -136,6 +137,8 @@ public class StockOut {
 	public void setAddIp(String addIp) {
 		this.addIp = addIp;
 	}
+
+	
 	
 	
 	
